@@ -6,8 +6,19 @@
 // Deadly Railways
 package ktbkonno.winsanmwtv;
 
-public class Main {
-    public static void main(String[] args) {
-        
+import javax.swing.*;
+
+public class Main extends JFrame {
+
+    Main() { // main constructor
+        add(new HomePage());
+    }
+
+    public static void main(String[] args) { // void main runner and init
+        Main display = new Main();
+        display.setSize(850, 530);
+        display.setTitle("Deadly Railways");
+        display.setLocationRelativeTo(null);
+        display.setVisible(true);
     }
 }
