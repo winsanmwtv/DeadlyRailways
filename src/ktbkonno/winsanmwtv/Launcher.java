@@ -1,3 +1,4 @@
+// class for handle home page event
 package ktbkonno.winsanmwtv;
 
 import javax.swing.*;

@@ -34,18 +34,5 @@ class HomePage extends JPanel {
         int xSize = getWidth();
         int ySize = getHeight();
         g.drawImage(backgroundImage, 0, 0, xSize, ySize, this);
-
-        /* String title = "Deadly Railways";
-
-
-
-        Font font = new Font("SansSerif", Font.PLAIN, 36);
-        g.setFont(font);
-
-        FontMetrics fm = g.getFontMetrics();
-        int x = (getWidth() - fm.stringWidth(title)) / 2;
-        g.drawString(title, x, getHeight() / 4); */
     }
-
-
 }
