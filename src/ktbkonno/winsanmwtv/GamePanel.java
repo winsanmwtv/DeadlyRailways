@@ -3,6 +3,7 @@ package ktbkonno.winsanmwtv;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.Ellipse2D;
 import java.net.URL;
 
 public class GamePanel extends JPanel {
@@ -51,17 +52,23 @@ public class GamePanel extends JPanel {
 
                         // Update player location based on key press (optional)
                 switch (keyChar) {
-                    case 'W':
+                    case 'w':
                         // Move player up
+                        repaint();
                         break;
-                    case 'A':
+                    case 'a':
+                        player.MoveLeft();
+                        repaint();
                         // Move player left
                         break;
-                    case 'S':
+                    case 's':
+                        repaint();
                         // Move player down
                         break;
-                    case 'D':
+                    case 'd':
                         // Move player right
+                        player.MoveRight();
+                        repaint();
                         break;
                 }
 
@@ -106,6 +113,7 @@ public class GamePanel extends JPanel {
                     Countdown.countdown.interrupt();
                     // break;
                 }
+                repaint();
             }
         }
     });
@@ -126,9 +134,28 @@ public class GamePanel extends JPanel {
         player.setWidth(getWidth());
         g.drawImage(backgroundImage, 0, 0, xSize, ySize, this);
         g.setColor(Color.WHITE);
-        g.drawString("Time left: "+Countdown.getMinute()+":"+Countdown.getSecond(), 15, 15);
-        // g.drawString("Game Version: "+Init.gameVer, 15, getHeight()-15);
-        g.drawImage(userImage, player.getCurrentLocationX(), getHeight()-100, this);
+        g.drawString("Time left: " + Countdown.getMinute() + ":" + Countdown.getSecond(), 15, 15);
+
+        // Draw user image as a circle
+        int userImageX = player.getCurrentLocationX();
+        int userImageY = getHeight() - 100;
+        int imageWidth = 40;
+        int imageHeight = 40;
+
+        // Create a Graphics2D object
+        Graphics2D g2d = (Graphics2D) g.create();
+
+        // Create a circular clip
+        int diameter = Math.min(imageWidth, imageHeight);
+        int x = userImageX + (imageWidth - diameter) / 2;
+        int y = userImageY + (imageHeight - diameter) / 2;
+        g2d.setClip(new Ellipse2D.Double(x, y, diameter, diameter));
+
+        // Draw the image within the circular clip
+        g2d.drawImage(userImage, userImageX, userImageY, null);
+
+        // Dispose of the Graphics2D object
+        g2d.dispose();
 
         if (Countdown.getMinute() == 0 && Countdown.second == 0) {
             g.drawImage(outoftime, (getWidth() - 1920)/2, (getHeight() - 1080)/2, 1920, 1080, this);
