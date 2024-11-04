@@ -24,7 +24,6 @@ public class Launcher extends JPanel {
     private JButton startButton = new JButton(startIcon);
     private JButton exitButton = new JButton(exitIcon);
 
-
     Launcher() {
         // add(new LauncherUtil());
         runner.start();
@@ -56,7 +55,6 @@ public class Launcher extends JPanel {
 
         g.setColor(Color.WHITE);
         g.drawString("Game Version: "+Init.gameVer, 15, getHeight()-15);
-        g.setColor(Color.BLACK);
 
         startButton.setBounds((getWidth() - 100) / 2, (getHeight() / 2), 100, 40);
         add(startButton);
@@ -70,6 +68,7 @@ public class Launcher extends JPanel {
                 Countdown.second = 0;
                 remove(startButton);
                 startButton.setIcon(startIcon);
+                GamePanel.init();
             }
         });
 
