@@ -265,7 +265,7 @@ public class GamePanel extends JPanel {
 
         g.drawString("Time left: " + Countdown.getMinute() + ":" + Countdown.getSecond(), 15, 15);
         g.drawString("HP Left: "+player.getScore(), 15, 30);
-        // g.drawString("X: "+x+" Y: "+y, 15, 45);
+        if (Init.isDebug) g.drawString("X: "+x+" Y: "+y, 15, 45);
 
 
         // Draw user image as a circle
