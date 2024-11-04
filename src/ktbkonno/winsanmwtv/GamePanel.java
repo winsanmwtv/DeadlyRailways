@@ -131,8 +131,10 @@ public class GamePanel extends JPanel {
                     case 'd':
 
                         // Move player right
-                        if (!isDone) {if (x < 8) {player.MoveRight();
+                        if (!isDone) {if (x < 8) {
                             if (map[y+2][x+1] == 1) break;
+                            player.MoveRight();
+
                             x++;}
                         }
                         repaint();
