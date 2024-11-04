@@ -45,7 +45,8 @@ public class Launcher extends JPanel {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         startButton.setIcon(startIcon);
-                        System.out.println("tf");
+                        System.out.println("on user click start game");
+                        Main.startGameInit();
                     }
                 });
                 timer.setRepeats(false); // Ensure the timer triggers only once

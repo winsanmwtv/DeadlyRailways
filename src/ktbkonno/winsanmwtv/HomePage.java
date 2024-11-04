@@ -5,9 +5,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 
-class HomePage extends JPanel {
-    URL bgURL = this.getClass().getResource("image/background.png");
-    Image backgroundImage = new ImageIcon(bgURL).getImage();
+public class HomePage extends JPanel {
+    private final URL bgURL = this.getClass().getResource("image/background.png");
+    private final Image backgroundImage = new ImageIcon(bgURL).getImage();
 
 
     HomePage() {
@@ -16,7 +16,7 @@ class HomePage extends JPanel {
         repaint();
     }
 
-    Thread runner = new Thread(new Runnable() {
+    public Thread runner = new Thread(new Runnable() {
         public void run() {
             while(true){
                 try {
