@@ -54,7 +54,7 @@ public class Launcher extends JPanel {
         add(startTitle);
 
         g.setColor(Color.WHITE);
-        g.drawString("Game Version: "+Init.gameVer, 15, getHeight()-15);
+        g.drawString("Game Version: "+ Main.gameVer, 15, getHeight()-15);
 
         startButton.setBounds((getWidth() - 100) / 2, (getHeight() / 2), 100, 40);
         add(startButton);
@@ -63,8 +63,8 @@ public class Launcher extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 startButton.setIcon(startClick);
                 System.out.println("User clicked start");
-                Init.startGameInit();
-                Countdown.minute = Init.gameTime;
+                Main.startGameInit();
+                Countdown.minute = Main.gameTime;
                 Countdown.second = 0;
                 remove(startButton);
                 startButton.setIcon(startIcon);

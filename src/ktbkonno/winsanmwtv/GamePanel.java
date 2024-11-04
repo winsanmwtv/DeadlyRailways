@@ -52,8 +52,8 @@ public class GamePanel extends JPanel {
     // horizontal status platform: 0 = void, 1 = signal pole, 2 = assistanceItem;
     // 26-30 would must void;
 
-    static int[] mapVertical = new int[Init.gameLength];
-    static int[][] map = new int[Init.gameLength][9];
+    static int[] mapVertical = new int[Main.gameLength];
+    static int[][] map = new int[Main.gameLength][9];
 
     static int width;
     static int height;
@@ -71,7 +71,7 @@ public class GamePanel extends JPanel {
         // Countdown.countdown.start();
         timer.start();
         Countdown.countdown.start();
-        Countdown.minute = Init.gameTime;
+        Countdown.minute = Main.gameTime;
 
         KeyListener listener = new KeyListener() {
             @Override
@@ -98,8 +98,8 @@ public class GamePanel extends JPanel {
                         if (map[y+3][x] == 1) break;
 
                         if (!isDone) {// Move player up
-                        if (y < Init.gameLength-6) y++;
-                        if (y >= Init.gameLength-6) isDone = true;
+                        if (y < Main.gameLength-6) y++;
+                        if (y >= Main.gameLength-6) isDone = true;
                         }
                         repaint();
                         break;
@@ -151,8 +151,8 @@ public class GamePanel extends JPanel {
     static public void init() {
         yLoc = player.getY(1);
         mapVertical[2] = 8;
-        mapVertical[Init.gameLength-1] = 9;
-        for (int i = 3; i < Init.gameLength; i++) {
+        mapVertical[Main.gameLength-1] = 9;
+        for (int i = 3; i < Main.gameLength; i++) {
             mapVertical[i] = (int) (0 + (Math.random() * (4 - 0)));
             for (int j = 0; j < 9; j++) {
                 map[i][j] = 0;
@@ -298,7 +298,7 @@ public class GamePanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     mainMenuButton.setIcon(restartGameIconClicked);
-                    Init.onGameEnd();
+                    Main.onGameEnd();
                     remove(mainMenuButton);
                 }
             });
@@ -313,7 +313,7 @@ public class GamePanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     mainMenuButton.setIcon(restartGameIconClicked);
-                    Init.onGameEnd();
+                    Main.onGameEnd();
                     remove(mainMenuButton);
                 }
             });
@@ -327,7 +327,7 @@ public class GamePanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     mainMenuButton.setIcon(restartGameIconClicked);
-                    Init.onGameEnd();
+                    Main.onGameEnd();
                     remove(mainMenuButton);
                 }
             });
