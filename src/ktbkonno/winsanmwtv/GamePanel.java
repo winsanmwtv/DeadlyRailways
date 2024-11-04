@@ -10,17 +10,25 @@ public class GamePanel extends JPanel {
 
     static PlayerLocation player = new PlayerLocation();
 
+    static public boolean isDone = false;
+
     private final URL bgURL = this.getClass().getResource("image/background.png");
     private final Image backgroundImage = new ImageIcon(bgURL).getImage();
+
+    private final URL winURL = this.getClass().getResource("image/win.png");
+    private final Image winImage = new ImageIcon(winURL).getImage();
 
     private final URL outoftimeURL = this.getClass().getResource("image/out_of_time.png");
     private final Image outoftime = new ImageIcon(outoftimeURL).getImage();
 
+    private final URL outofscoreURL = this.getClass().getResource("image/out_of_score.png");
+    private final Image outofscore = new ImageIcon(outofscoreURL).getImage();
+
     private final URL userURL = this.getClass().getResource("image/user.png");
     private final Image userImage = new ImageIcon(userURL).getImage();
 
-    // vertical status: 0 = platform, 1 = road, 2 = rail, 3 = hsr_rail, 9 = end;
-    // horizontal status platform: 0 = void, 1 = signal pole, 2 = token;
+    // vertical status: 0 = platform, 1 = road, 2 = rail, 3 = hsr_rail, 9 = endLoc, 8 = startLoc;
+    // horizontal status platform: 0 = void, 1 = signal pole, 2 = assistanceItem;
     // 26-30 would must void;
 
     static int[] mapVertical = new int[25];
@@ -135,6 +143,7 @@ public class GamePanel extends JPanel {
         g.drawImage(backgroundImage, 0, 0, xSize, ySize, this);
         g.setColor(Color.WHITE);
         g.drawString("Time left: " + Countdown.getMinute() + ":" + Countdown.getSecond(), 15, 15);
+        g.drawString("Score: "+player.getScore(), 15, 30);
 
         // Draw user image as a circle
         int userImageX = player.getCurrentLocationX();
@@ -157,7 +166,36 @@ public class GamePanel extends JPanel {
         // Dispose of the Graphics2D object
         g2d.dispose();
 
-        if (Countdown.getMinute() == 0 && Countdown.second == 0) {
+        if (player.getScore() == 0) {
+            g.drawImage(outofscore, (getWidth() - 1920)/2, (getHeight() - 1080)/2, 1920, 1080, this);
+            mainMenuButton.setBounds(getWidth() / 2, (getHeight() / 2) + 30, 100, 40);
+            add(mainMenuButton);
+            mainMenuButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    mainMenuButton.setIcon(restartGameIconClicked);
+                    Init.onGameEnd();
+                    remove(mainMenuButton);
+                }
+            });
+        }
+
+        else if (isDone) {
+            g.drawImage(winImage, (getWidth() - 1920)/2, (getHeight() - 1080)/2, 1920, 1080, this);
+            g.drawString("Your score left: "+player.getScore(), (getWidth()/2)-40, (getHeight()/2)+30);
+            mainMenuButton.setBounds(getWidth() / 2, (getHeight() / 2) + 30, 100, 40);
+            add(mainMenuButton);
+            mainMenuButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    mainMenuButton.setIcon(restartGameIconClicked);
+                    Init.onGameEnd();
+                    remove(mainMenuButton);
+                }
+            });
+        }
+
+        else if (Countdown.getMinute() == 0 && Countdown.second == 0) {
             g.drawImage(outoftime, (getWidth() - 1920)/2, (getHeight() - 1080)/2, 1920, 1080, this);
             mainMenuButton.setBounds(getWidth() / 2, (getHeight() / 2) + 30, 100, 40);
             add(mainMenuButton);

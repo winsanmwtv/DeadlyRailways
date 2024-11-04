@@ -6,6 +6,7 @@ public class PlayerLocation {
     private int panelWidth;
     private boolean whileMove = false;
     private int loc;
+    private int score = 3;
 
     PlayerLocation() {
         /**/
@@ -25,6 +26,18 @@ public class PlayerLocation {
 
     public void setX(int x) {
         this.x = x;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void deductScore() {
+        score--;
+    }
+
+    public int getScore() {
+        return score;
     }
 
     public int getCurrentLocationX() {

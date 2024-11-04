@@ -11,8 +11,8 @@ import java.awt.*;
 
 public class Init extends JFrame {
 
-    static public final String gameVer = "dev-3d"; // GAME VERSION
-    static public final int gameTime = 1; // game time
+    static public final String gameVer = "dev-3f"; // GAME VERSION
+    static public final int gameTime = -1; // game time (do -1 for debug)
     static public final boolean isDebug = true;
 
     static JFrame display = new Init();
@@ -39,10 +39,12 @@ public class Init extends JFrame {
         display.setLocationRelativeTo(null);
         display.setVisible(false);
         gameplay.setSize(850, 530);
-        gameplay.setTitle("Deadly Railways - In Game (version "+gameVer+")");
+        gameplay.setTitle("Deadly Railways - In Game (Game Version "+gameVer+")");
         gameplay.setLocationRelativeTo(null);
         gameplay.setVisible(true);
         GamePanel.player.setX(4);
+        GamePanel.player.setScore(3);
+        GamePanel.isDone = false;
         //gameplay.setFocusable(true);
         // Countdown.countdown.start();
 
@@ -50,13 +52,14 @@ public class Init extends JFrame {
 
     static public void onGameEnd() {
         display.setSize(850, 530);
-        display.setTitle("Deadly Railways Launcher");
+        display.setTitle("Deadly Railways Launcher - Replay");
         display.setLocationRelativeTo(null);
         display.setVisible(true);
         gameplay.setSize(850, 530);
-        gameplay.setTitle("Deadly Railways - In Game (version "+gameVer+")");
+        gameplay.setTitle("Deadly Railways - In Game (Game Version "+gameVer+")");
         gameplay.setLocationRelativeTo(null);
         gameplay.setVisible(false);
+        GamePanel.isDone = false;
         //gameplay.setFocusable(false);
         // Countdown.countdown.interrupt();
     }
