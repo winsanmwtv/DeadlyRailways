@@ -62,7 +62,7 @@ public class Launcher extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 startButton.setIcon(startClick);
-                System.out.println("User clicked start");
+                // System.out.println("User clicked start");
                 Init.startGameInit();
                 Countdown.minute = Init.gameTime;
                 Countdown.second = 0;
@@ -78,7 +78,7 @@ public class Launcher extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 exitButton.setIcon(exitClick);
-                System.out.println("User clicked exit");
+                // System.out.println("User clicked exit");
                 System.exit(0);
                 remove(exitButton);
             }
