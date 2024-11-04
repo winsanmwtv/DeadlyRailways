@@ -35,12 +35,12 @@ public class Countdown {
                 }
                 if (second > 0) {
                     second--;
-                    System.out.println("Timer: "+minute+":"+getSecond());
+                    // System.out.println("Timer: "+minute+":"+getSecond());
                 }
                 else if (second == 0 && minute > 0) {
                     second = 59;
                     minute--;
-                    System.out.println("Timer: "+minute+":"+getSecond());
+                    // System.out.println("Timer: "+minute+":"+getSecond());
                 }
                 else if (minute == 0 && second == 0) {
                     // break;

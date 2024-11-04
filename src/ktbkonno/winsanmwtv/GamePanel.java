@@ -81,7 +81,7 @@ public class GamePanel extends JPanel {
             public void keyPressed(KeyEvent
                     e) {
                 char keyChar = e.getKeyChar();
-                System.out.println("Pressed: " + keyChar);
+                // System.out.println("Pressed: " + keyChar);
 
                         // Update player location based on key press (optional)
                 switch (keyChar) {

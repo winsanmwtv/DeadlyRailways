@@ -81,7 +81,7 @@ public class PlayerLocation {
     }
 
     public void MoveLeft() {
-        System.out.println(x>0);
+        // System.out.println(x>0);
         if (x > 0) {
             whileMove = true;
             loc = xLoc[x];
@@ -92,12 +92,12 @@ public class PlayerLocation {
             }
             whileMove = false;
             x--;
-            System.out.println(x);
+            // System.out.println(x);
         }
     }
 
     public void MoveRight() {
-        System.out.println(x<8);
+        // System.out.println(x<8);
         if (x < 8) {
             whileMove = true;
             loc = xLoc[x];
@@ -108,7 +108,7 @@ public class PlayerLocation {
             }
             whileMove = false;
             x++;
-            System.out.println(x);
+            // System.out.println(x);
         }
     }
 
