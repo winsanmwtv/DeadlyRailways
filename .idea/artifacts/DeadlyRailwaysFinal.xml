@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="DeadlyRailwaysFinal">
-    <output-path>$PROJECT_DIR$/out/artifacts/DeadlyRailwaysFinal</output-path>
-    <root id="archive" name="DeadlyRailwaysFinal.jar">
-      <element id="module-output" name="DeadlyRailways" />
-    </root>
-  </artifact>
-</component>

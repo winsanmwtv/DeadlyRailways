@@ -52,8 +52,8 @@ public class GamePanel extends JPanel {
     // horizontal status platform: 0 = void, 1 = signal pole, 2 = assistanceItem;
     // 26-30 would must void;
 
-    static int[] mapVertical = new int[Main.gameLength];
-    static int[][] map = new int[Main.gameLength][9];
+    static int[] mapVertical = new int[Init.gameLength];
+    static int[][] map = new int[Init.gameLength][9];
 
     static int width;
     static int height;
@@ -71,7 +71,7 @@ public class GamePanel extends JPanel {
         // Countdown.countdown.start();
         timer.start();
         Countdown.countdown.start();
-        Countdown.minute = Main.gameTime;
+        Countdown.minute = Init.gameTime;
 
         KeyListener listener = new KeyListener() {
             @Override
@@ -98,8 +98,8 @@ public class GamePanel extends JPanel {
                         if (map[y+3][x] == 1) break;
 
                         if (!isDone) {// Move player up
-                        if (y < Main.gameLength-6) y++;
-                        if (y >= Main.gameLength-6) isDone = true;
+                        if (y < Init.gameLength-6) y++;
+                        if (y >= Init.gameLength-6) isDone = true;
                         }
                         repaint();
                         break;
@@ -151,8 +151,8 @@ public class GamePanel extends JPanel {
     static public void init() {
         yLoc = player.getY(1);
         mapVertical[2] = 8;
-        mapVertical[Main.gameLength-1] = 9;
-        for (int i = 3; i < Main.gameLength; i++) {
+        mapVertical[Init.gameLength-1] = 9;
+        for (int i = 3; i < Init.gameLength; i++) {
             mapVertical[i] = (int) (0 + (Math.random() * (4 - 0)));
             for (int j = 0; j < 9; j++) {
                 map[i][j] = 0;
@@ -264,7 +264,7 @@ public class GamePanel extends JPanel {
         if (y == 0) yLoc = player.getY(1);
 
         g.drawString("Time left: " + Countdown.getMinute() + ":" + Countdown.getSecond(), 15, 15);
-        g.drawString("Score: "+player.getScore(), 15, 30);
+        g.drawString("HP Left: "+player.getScore(), 15, 30);
         g.drawString("X: "+x+" Y: "+y, 15, 45);
 
 
@@ -298,7 +298,7 @@ public class GamePanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     mainMenuButton.setIcon(restartGameIconClicked);
-                    Main.onGameEnd();
+                    Init.onGameEnd();
                     remove(mainMenuButton);
                 }
             });
@@ -306,14 +306,14 @@ public class GamePanel extends JPanel {
 
         else if (isDone) {
             g.drawImage(winImage, (getWidth() - 1920)/2, (getHeight() - 1080)/2, 1920, 1080, this);
-            g.drawString("Your score left: "+player.getScore(), (getWidth()/2)-150, (getHeight()/2)+50);
+            g.drawString("Your HP left: "+player.getScore(), (getWidth()/2)-150, (getHeight()/2)+50);
             mainMenuButton.setBounds(getWidth() / 2, (getHeight() / 2) + 30, 100, 40);
             add(mainMenuButton);
             mainMenuButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     mainMenuButton.setIcon(restartGameIconClicked);
-                    Main.onGameEnd();
+                    Init.onGameEnd();
                     remove(mainMenuButton);
                 }
             });
@@ -327,7 +327,7 @@ public class GamePanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     mainMenuButton.setIcon(restartGameIconClicked);
-                    Main.onGameEnd();
+                    Init.onGameEnd();
                     remove(mainMenuButton);
                 }
             });

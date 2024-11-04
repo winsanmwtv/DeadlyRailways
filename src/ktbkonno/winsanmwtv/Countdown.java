@@ -26,7 +26,7 @@ public class Countdown {
     public static Thread countdown = new Thread(new Runnable() {
         public void run() {
             second = 0;
-            minute = Main.gameTime;
+            minute = Init.gameTime;
             while(true){
                 try {
                     countdown.sleep(1000);

@@ -8,17 +8,17 @@ package ktbkonno.winsanmwtv;
 
 import javax.swing.*;
 
-public class Main extends JFrame {
+public class Init extends JFrame {
 
     static public final String gameVer = "beta-1"; // GAME VERSION
     static public final int gameTime = 10; // game time (do -1 for debug)
     static public final boolean isDebug = true;
     static public final int gameLength = 100;
 
-    static JFrame display = new Main();
+    static JFrame display = new Init();
     static JFrame gameplay = new Gameplay();
 
-    Main() { // main constructor
+    Init() { // main constructor
         add(new Launcher());
     }
 
