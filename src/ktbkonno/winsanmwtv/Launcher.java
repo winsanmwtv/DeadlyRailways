@@ -18,8 +18,8 @@ public class Launcher extends JPanel {
 
     ImageIcon exitIcon = new ImageIcon(this.getClass().getResource("image/exit.png"));
 
-    ImageIcon startClick = new ImageIcon(this.getClass().getResource("image/startClick.png"));
-    ImageIcon exitClick = new ImageIcon(this.getClass().getResource("image/exitClick.png"));
+    ImageIcon startClick = new ImageIcon(this.getClass().getResource("image/start.png"));
+    ImageIcon exitClick = new ImageIcon(this.getClass().getResource("image/exit.png"));
 
     private JButton startButton = new JButton(startIcon);
     private JButton exitButton = new JButton(exitIcon);

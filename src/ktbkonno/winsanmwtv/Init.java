@@ -11,9 +11,10 @@ import java.awt.*;
 
 public class Init extends JFrame {
 
-    static public final String gameVer = "dev-3f"; // GAME VERSION
-    static public final int gameTime = -1; // game time (do -1 for debug)
+    static public final String gameVer = "beta-1"; // GAME VERSION
+    static public final int gameTime = 10; // game time (do -1 for debug)
     static public final boolean isDebug = true;
+    static public final int gameLength = 100;
 
     static JFrame display = new Init();
     static JFrame gameplay = new Gameplay();
@@ -45,6 +46,9 @@ public class Init extends JFrame {
         GamePanel.player.setX(4);
         GamePanel.player.setScore(3);
         GamePanel.isDone = false;
+        GamePanel.y = 0;
+        GamePanel.x = 4;
+        GamePanel.yLoc = GamePanel.player.getY(1);
         //gameplay.setFocusable(true);
         // Countdown.countdown.start();
 
