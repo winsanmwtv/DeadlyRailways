@@ -11,7 +11,7 @@ import java.awt.*;
 
 public class Init extends JFrame {
 
-    static public final String gameVer = "dev-2"; // GAME VERSION
+    static public final String gameVer = "dev-3c"; // GAME VERSION
     static public final int gameTime = 5; // game time
     static public final boolean isDebug = true;
 

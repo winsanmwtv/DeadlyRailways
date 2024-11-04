@@ -139,8 +139,8 @@ public class GamePanel extends JPanel {
         // Draw user image as a circle
         int userImageX = player.getCurrentLocationX();
         int userImageY = getHeight() - 100;
-        int imageWidth = 40;
-        int imageHeight = 40;
+        int imageWidth = 50;
+        int imageHeight = 50;
 
         // Create a Graphics2D object
         Graphics2D g2d = (Graphics2D) g.create();
@@ -151,8 +151,8 @@ public class GamePanel extends JPanel {
         int y = userImageY + (imageHeight - diameter) / 2;
         g2d.setClip(new Ellipse2D.Double(x, y, diameter, diameter));
 
-        // Draw the image within the circular clip
-        g2d.drawImage(userImage, userImageX, userImageY, null);
+        // Draw the image within the circular clip, adjusting for centering
+        g2d.drawImage(userImage, x, y, diameter, diameter, null);
 
         // Dispose of the Graphics2D object
         g2d.dispose();
