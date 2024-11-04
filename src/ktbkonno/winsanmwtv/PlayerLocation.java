@@ -23,6 +23,10 @@ public class PlayerLocation {
         //System.out.println();
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
     public int getCurrentLocationX() {
         if (!whileMove) return xLoc[x];
         else return loc;

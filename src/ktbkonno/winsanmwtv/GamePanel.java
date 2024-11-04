@@ -8,7 +8,7 @@ import java.net.URL;
 
 public class GamePanel extends JPanel {
 
-    PlayerLocation player = new PlayerLocation();
+    static PlayerLocation player = new PlayerLocation();
 
     private final URL bgURL = this.getClass().getResource("image/background.png");
     private final Image backgroundImage = new ImageIcon(bgURL).getImage();

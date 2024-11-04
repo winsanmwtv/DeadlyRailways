@@ -11,8 +11,8 @@ import java.awt.*;
 
 public class Init extends JFrame {
 
-    static public final String gameVer = "dev-3c"; // GAME VERSION
-    static public final int gameTime = 5; // game time
+    static public final String gameVer = "dev-3d"; // GAME VERSION
+    static public final int gameTime = 1; // game time
     static public final boolean isDebug = true;
 
     static JFrame display = new Init();
@@ -42,6 +42,7 @@ public class Init extends JFrame {
         gameplay.setTitle("Deadly Railways - In Game (version "+gameVer+")");
         gameplay.setLocationRelativeTo(null);
         gameplay.setVisible(true);
+        GamePanel.player.setX(4);
         //gameplay.setFocusable(true);
         // Countdown.countdown.start();
 
