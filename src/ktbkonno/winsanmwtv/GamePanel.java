@@ -2,17 +2,21 @@ package ktbkonno.winsanmwtv;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.net.URL;
 
 public class GamePanel extends JPanel {
+
+    PlayerLocation player = new PlayerLocation();
 
     private final URL bgURL = this.getClass().getResource("image/background.png");
     private final Image backgroundImage = new ImageIcon(bgURL).getImage();
 
     private final URL outoftimeURL = this.getClass().getResource("image/out_of_time.png");
     private final Image outoftime = new ImageIcon(outoftimeURL).getImage();
+
+    private final URL userURL = this.getClass().getResource("image/user.png");
+    private final Image userImage = new ImageIcon(userURL).getImage();
 
     // vertical status: 0 = platform, 1 = road, 2 = rail, 3 = hsr_rail, 9 = end;
     // horizontal status platform: 0 = void, 1 = signal pole, 2 = token;
@@ -34,7 +38,45 @@ public class GamePanel extends JPanel {
         timer.start();
         Countdown.countdown.start();
         Countdown.minute = Init.gameTime;
+
+        KeyListener listener = new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {}
+
+            @Override
+            public void keyPressed(KeyEvent
+                    e) {
+                char keyChar = e.getKeyChar();
+                System.out.println("Pressed: " + keyChar);
+
+                        // Update player location based on key press (optional)
+                switch (keyChar) {
+                    case 'W':
+                        // Move player up
+                        break;
+                    case 'A':
+                        // Move player left
+                        break;
+                    case 'S':
+                        // Move player down
+                        break;
+                    case 'D':
+                        // Move player right
+                        break;
+                }
+
+                repaint();
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        };
+
+        addKeyListener(listener);
+        setFocusable(true); // Make the panel focusable for key input
     }
+
+
 
     static public void init() {
         mapVertical[0] = 0;
@@ -81,12 +123,12 @@ public class GamePanel extends JPanel {
         int ySize = getHeight();
         this.width = xSize;
         this.height = ySize;
+        player.setWidth(getWidth());
         g.drawImage(backgroundImage, 0, 0, xSize, ySize, this);
         g.setColor(Color.WHITE);
         g.drawString("Time left: "+Countdown.getMinute()+":"+Countdown.getSecond(), 15, 15);
         // g.drawString("Game Version: "+Init.gameVer, 15, getHeight()-15);
-
-        PlayerLocation player = new PlayerLocation();
+        g.drawImage(userImage, player.getCurrentLocationX(), getHeight()-100, this);
 
         if (Countdown.getMinute() == 0 && Countdown.second == 0) {
             g.drawImage(outoftime, (getWidth() - 1920)/2, (getHeight() - 1080)/2, 1920, 1080, this);

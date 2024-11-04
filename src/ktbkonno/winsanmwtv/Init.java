@@ -13,6 +13,7 @@ public class Init extends JFrame {
 
     static public final String gameVer = "dev-2"; // GAME VERSION
     static public final int gameTime = 5; // game time
+    static public final boolean isDebug = true;
 
     static JFrame display = new Init();
     static JFrame gameplay = new Gameplay();
@@ -28,6 +29,7 @@ public class Init extends JFrame {
         display.setVisible(true);
         display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameplay.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //gameplay.setFocusable(false);
         // Countdown.countdown.interrupt();
     }
 
@@ -40,6 +42,7 @@ public class Init extends JFrame {
         gameplay.setTitle("Deadly Railways - In Game (version "+gameVer+")");
         gameplay.setLocationRelativeTo(null);
         gameplay.setVisible(true);
+        //gameplay.setFocusable(true);
         // Countdown.countdown.start();
 
     }
@@ -53,6 +56,7 @@ public class Init extends JFrame {
         gameplay.setTitle("Deadly Railways - In Game (version "+gameVer+")");
         gameplay.setLocationRelativeTo(null);
         gameplay.setVisible(false);
+        //gameplay.setFocusable(false);
         // Countdown.countdown.interrupt();
     }
 }
