@@ -104,9 +104,12 @@ public class GamePanel extends JPanel {
                         repaint();
                         break;
                     case 'a':
-                        if (map[y+2][x-1] == 1) break;
-                        if (!isDone) {player.MoveLeft();
-                            if (x > 0) x--;
+
+                        if (!isDone) {
+                            if (x > 0) {
+                                if (map[y+2][x-1] == 1) break;
+                            player.MoveLeft();
+                             x--;}
                         }
                         // Move player left
                         repaint();
@@ -126,10 +129,11 @@ public class GamePanel extends JPanel {
                         repaint();
                         break;
                     case 'd':
-                        if (map[y+2][x+1] == 1) break;
+
                         // Move player right
-                        if (!isDone) {player.MoveRight();
-                            if (x < 8) x++;
+                        if (!isDone) {if (x < 8) {player.MoveRight();
+                            if (map[y+2][x+1] == 1) break;
+                            x++;}
                         }
                         repaint();
                         break;
