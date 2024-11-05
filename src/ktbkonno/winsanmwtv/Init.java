@@ -19,7 +19,7 @@ public class Init extends JFrame {
     static protected final int addTime = 10; // Additional time in seconds
     static protected final int carSpeed = 3;
     static protected final int trainSpeed = 7;
-    static protected final int hsrSpeed = 21;
+    static protected final int hsrSpeed = 18;
     static protected final int score = 3; // Default HP
     static public boolean isThisRunning = true;
 
