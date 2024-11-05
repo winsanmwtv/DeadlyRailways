@@ -11,12 +11,17 @@ public class Countdown {
     public static boolean isNotHalt = false;
     static public boolean playStatus = false;
 
+    public static boolean isNotStart = false;
+
     static public boolean isRunning = false;
     Countdown() {
 
         second = 0;
         minute = Init.gameTime;
-        countdown.start();
+        if (!isNotStart) {
+            countdown.start();
+            isNotStart = true;
+        }
     }
 
     static void setHaltStatus(boolean halt) {
@@ -48,8 +53,8 @@ public class Countdown {
     public Thread countdown = new Thread(new Runnable() {
         public void run() {
             playStatus = true;
-            if (!isRunning){
-                while(playStatus){
+            if (true){
+                while(true){
                     isRunning = true;
                     // System.out.println(playStatus);
                     try {
