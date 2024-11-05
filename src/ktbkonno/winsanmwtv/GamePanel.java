@@ -54,6 +54,7 @@ public class GamePanel extends JPanel {
     private final Image coinImage = loadImage("image/coin.png");
     private final Image hsrComing = loadImage("image/hsrComing.png");
     private final Image heart = loadImage("image/heart.png");
+    private final Image heartCyan = loadImage("image/heartCyan.png");
 
     // vertical status: 0 = platform, 1 = road, 2 = rail, 3 = hsr_rail, 9 = endLoc, 8 = startLoc;
     // 4 = void; 5 = roadClosed;
@@ -533,11 +534,6 @@ public class GamePanel extends JPanel {
         g.drawImage(backgroundImage, 0, 0, xSize, ySize, this);
         g.setColor(Color.WHITE);
 
-        // heart
-        for (int i = 0; i < player.getScore(); i++) {
-            int tmpX = ((getWidth()-20)-15)-(i*30);
-            g.drawImage(heart, tmpX, 15, 25, 25, this);
-        }
 
         // do get Y
         if (y >= 1) {for (int i = 1; i <= 5; i++) {
@@ -595,6 +591,8 @@ public class GamePanel extends JPanel {
                 if (vehicleDirection[y+i] == 0) g.drawImage(hsrLeft, vehicleX[y+i][0], player.getY(i), this);
                 else g.drawImage(hsrRight, vehicleX[y+i][0], player.getY(i), this);
             }
+
+
 
             // end game area
             else if (mapVertical[y+i] == 9) {
@@ -660,6 +658,20 @@ public class GamePanel extends JPanel {
                 else g.drawImage(hsrRight, vehicleX[(y+1)+i][0], player.getY(i), this);
             }
         }}
+        //System.out.println(y+" "+(Init.gameLength-30));
+        //System.out.println(y > Init.gameLength-30);
+        if (y > Init.gameLength-10) {
+            for (int i = 0; i < player.getScore(); i++) {
+                int tmpX = ((getWidth() - 20) - 15) - (i * 30);
+                g.drawImage(heartCyan, tmpX, 15, 25, 25, this);
+            }
+        }
+        else {
+            for (int i = 0; i < player.getScore(); i++) {
+                int tmpX = ((getWidth()-20)-15)-(i*30);
+                g.drawImage(heart, tmpX, 15, 25, 25, this);
+            }
+        }
 
         if (y == 0) yLoc = player.getY(1);
 
@@ -695,11 +707,6 @@ public class GamePanel extends JPanel {
         // Dispose of the Graphics2D object
         g2d.dispose();
         // System.out.println("Y: "+y+" Max: "+Init.gameLength);
-
-        for (int i = 0; i < player.getScore(); i++) {
-            int tmpX = ((getWidth()-20)-15)-(i*30);
-            g.drawImage(heart, tmpX, 15, 25, 25, this);
-        }
 
         if (player.getScore() <= 0) {
             isDead = true;

@@ -13,7 +13,7 @@ public class Init extends JFrame {
     static protected final char devMode = 'c'; // Game mode
     static protected final int gameTime = 5; // Game time (use -1 for debug)
     static protected final boolean isDebug = true;
-    static protected final int gameLength = 150+6;
+    static protected final int gameLength = 50+6;
     static protected final int addScore = 1; //HP
     static protected final int deductScore = -1; //HP
     static protected final int addTime = 10; // Additional time in seconds
