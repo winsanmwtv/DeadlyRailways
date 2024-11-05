@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Ellipse2D;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class GamePanel extends JPanel {
 
@@ -62,13 +63,37 @@ public class GamePanel extends JPanel {
     private final URL clockURL = this.getClass().getResource("image/clock.png");
     private final Image clock = new ImageIcon(clockURL).getImage();
 
+    private final URL carLeftURL = this.getClass().getResource("image/car_left.png");
+    private final Image carLeft = new ImageIcon(carLeftURL).getImage();
+
+    private final URL carRightURL = this.getClass().getResource("image/car_right.png");
+    private final Image carRight = new ImageIcon(carRightURL).getImage();
+
+    private final URL trainLeftURL = this.getClass().getResource("image/train_left.png");
+    private final Image trainLeft = new ImageIcon(carLeftURL).getImage();
+
+    private final URL trainRightURL = this.getClass().getResource("image/train_right.png");
+    private final Image trainRight = new ImageIcon(carRightURL).getImage();
+
+    private final URL hsrLeftURL = this.getClass().getResource("image/bullet_left.png");
+    private final Image hsrLeft = new ImageIcon(carLeftURL).getImage();
+
+    private final URL hsrRightURL = this.getClass().getResource("image/bullet_right.png");
+    private final Image hsrRight = new ImageIcon(carRightURL).getImage();
+
+    private final URL roadClosedURL = this.getClass().getResource("image/roadClosed.png");
+    private final Image roadClosed = new ImageIcon(roadClosedURL).getImage();
+
     // vertical status: 0 = platform, 1 = road, 2 = rail, 3 = hsr_rail, 9 = endLoc, 8 = startLoc;
+    // 4 = void; 5 = roadClosed;
     // horizontal status platform: 0 = void, 1 = signal pole, 2 = assistanceItem;
     // 26-30 would must void;
 
     static int[] mapVertical = new int[Init.gameLength];
     static int[][] map = new int[Init.gameLength][9];
     static int[] vehicleDirection = new int[Init.gameLength];
+    static boolean[][] vehicleCollapse = new boolean[Init.gameLength][2];
+    static int[][] vehicleX = new int[Init.gameLength][2];
     // 0 left 1 right;
 
     static int width;
@@ -82,7 +107,7 @@ public class GamePanel extends JPanel {
 
 
     GamePanel() {
-
+        vehicleRunner.start();
         yLoc = player.getY(1);
         // Countdown.countdown.start();
         Countdown.countdown.start();
@@ -222,7 +247,61 @@ public class GamePanel extends JPanel {
         // Make the panel focusable for key input
     }
 
+    // vehicle runner;
+    Thread vehicleRunner = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            while(true) {
+                try {
+                    vehicleRunner.sleep(10);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < Init.gameLength; i++) {
+                    if (mapVertical[i] != 0) {
+                        switch(mapVertical[i]) {
+                            case 1:
+                                int[] vehicleLoc = new int[2];
+                                for (int j = 0; j < 2; j++) {
+                                    if (vehicleDirection[i] == 0) {
+                                        if (vehicleX[i][j] > -100) vehicleX[i][j] -= Init.carSpeed;
+                                        else vehicleX[i][j] = PlayerLocation.panelWidth+100;
+                                    }
+                                    else {
+                                        if (vehicleX[i][j] < PlayerLocation.panelWidth+100) vehicleX[i][j] += Init.carSpeed;
+                                        else vehicleX[i][j] = -100;
+                                    }
+                                    vehicleLoc[j] = vehicleX[i][j];
+                                    if ((y + 2) == i) {
+                                        // Check for collision when moving up (W)
+                                        if (vehicleX[i][0] < player.getCurrentLocationX() + 45 && vehicleX[i][0] + 90 > player.getCurrentLocationX() - 5) {
+                                            mapVertical[i] = 5; // Set the map value indicating a collision
+                                            player.deductScore();
+                                            break; // Exit the loop since a collision was detected
+                                        }
+                                        // Check for collision when moving down (S)
+                                        else if (vehicleX[i][1] < player.getCurrentLocationX() + 45 && vehicleX[i][1] + 90 > player.getCurrentLocationX() - 5) {
+                                            mapVertical[i] = 5; // Set the map value indicating a collision
+                                            player.deductScore();
+                                            break; // Exit the loop since a collision was detected
+                                        }
+                                    }
 
+
+
+                                }
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                        }
+                    }
+                }
+                repaint();
+            }
+        }
+    });
 
     static int zeroCount; // Declared outside the init method
 
@@ -233,21 +312,38 @@ public class GamePanel extends JPanel {
         int minWalkableZeros = 5;      // Minimum number of 0's required in each row for walkability
         int maxSequenceLength = 3;     // Maximum allowed length of consecutive non-0 values in mapVertical
 
-        for (int i = 3; i < Init.gameLength-4; i++) {
+        // Track the count of consecutive non-zero values (1, 2, or 3)
+        int consecutiveCount = 0;
+
+        for (int i = 3; i < Init.gameLength - 4; i++) {
             // Assign values to mapVertical based on specified probabilities
-            mapVertical[i] = getRandomValue(new int[] { 0, 1, 2, 3 }, new double[] { 0.50, 0.30, 0.15, 0.05 });
+            int value = getRandomValue(new int[]{0, 1, 2, 3}, new double[]{0.50, 0.30, 0.15, 0.05});
+            mapVertical[i] = value;
 
             // Check for consecutive non-0 sequence length
-            int consecutiveCount = 1;
-            for (int j = 3; j < i; j++) {
-                if (mapVertical[j] == mapVertical[j - 1] && mapVertical[j] != 0) {
-                    consecutiveCount++;
-                    if (consecutiveCount > maxSequenceLength) {
-                        mapVertical[j] = 0; // Insert a 0 to break the sequence
-                        consecutiveCount = 1;
+            if (value != 0) {
+                consecutiveCount++;
+                if (consecutiveCount > 4) {
+                    mapVertical[i] = 0; // Insert a 0 to break the sequence
+                    consecutiveCount = 1; // Reset count to 1 (current value)
+                }
+            } else {
+                consecutiveCount = 0; // Reset count if a 0 is encountered
+            }
+
+            // Check for max sequence length
+            if (mapVertical[i] != 0) {
+                int seqCount = 1;
+                for (int j = 3; j < i; j++) {
+                    if (mapVertical[j] == mapVertical[j - 1] && mapVertical[j] != 0) {
+                        seqCount++;
+                        if (seqCount > maxSequenceLength) {
+                            mapVertical[j] = 0; // Insert a 0 to break the sequence
+                            seqCount = 1;
+                        }
+                    } else {
+                        seqCount = 1;
                     }
-                } else {
-                    consecutiveCount = 1;
                 }
             }
 
@@ -258,7 +354,7 @@ public class GamePanel extends JPanel {
                     do {
                         zeroCount = 0;
                         for (j = 0; j < 9; j++) {
-                            map[i][j] = getRandomValue(new int[] { 0, 1, 2, 3 }, new double[] { 0.83, 0.15, 0.01, 0.01 });
+                            map[i][j] = getRandomValue(new int[]{0, 1, 2, 3}, new double[]{0.83, 0.15, 0.01, 0.01});
                             if (map[i][j] == 0) {
                                 zeroCount++;
                             }
@@ -271,10 +367,36 @@ public class GamePanel extends JPanel {
             }
         }
 
-        for (int i = Init.gameLength-3; i < Init.gameLength; i++) mapVertical[i] = 7; // set void
-        // map[Init.gameLength-5][4] = 4;
+        for (int i = Init.gameLength - 3; i < Init.gameLength; i++) mapVertical[i] = 7; // set void
+        // map[Init.gameLength - 5][4] = 4;
         for (int i = 0; i < Init.gameLength; i++) vehicleDirection[i] = (int) (Math.random() * (2 - 0)) + 0;
+
+        // init car/train/hsr bullet train
+        for (int i = 0; i < Init.gameLength; i++) {
+            switch (mapVertical[i]) {
+                case 1:
+                    if (vehicleDirection[i] == 0) {
+                        for (int j = 0; j < 2; j++) {
+                            vehicleX[i][j] = (PlayerLocation.panelWidth + 100) + (j * 500);
+                        }
+                    } else {
+                        for (int j = 0; j < 2; j++) {
+                            vehicleX[i][j] = (-100) - (j * 500);
+                        }
+                    }
+                    break;
+                case 2:
+                    if (vehicleDirection[i] == 0) vehicleX[i][0] = (PlayerLocation.panelWidth + 200);
+                    else vehicleX[i][0] = -200;
+                    break;
+                case 3:
+                    if (vehicleDirection[i] == 0) vehicleX[i][0] = (PlayerLocation.panelWidth + 300);
+                    else vehicleX[i][0] = -300;
+                    break;
+            }
+        }
     }
+
 
     // Helper method to generate random values based on specified probabilities
     private static int getRandomValue(int[] values, double[] probabilities) {
@@ -322,6 +444,10 @@ public class GamePanel extends JPanel {
             }
             else if (mapVertical[y+i] == 1) {
                 g.drawImage(roadImage, 0, player.getY(i), 2000, 70, this);
+                for (int j = 0; j < 2; j++) {
+                    if (vehicleDirection[y+i] == 0) g.drawImage(carLeft, vehicleX[y+i][j], player.getY(i), this);
+                    else g.drawImage(carRight, vehicleX[y+i][j], player.getY(i), this);
+                }
             }
             else if (mapVertical[y+i] == 2) {
                 g.drawImage(railImage, 0, player.getY(i), 2000, 70, this);
@@ -329,9 +455,14 @@ public class GamePanel extends JPanel {
             else if (mapVertical[y+i] == 3) {
                 g.drawImage(hsrImage, 0, player.getY(i), 2000, 70, this);
             }
+            else if (mapVertical[y+i] == 5) {
+                g.drawImage(roadClosed, 0, player.getY(i), 2000, 70, this);
+            }
             else if (mapVertical[y+i] == 8) {
                 g.drawImage(startPlatImage, 0, player.getY(i), 2000, 140, this);
             }
+
+            // end game area
             else if (mapVertical[y+i] == 9) {
                 g.drawImage(homeSweetHome, 0, player.getY(i)-350, 2000, 420, this);
                 g.drawImage(home, player.getActualX(4), player.getY(i)+10, this);
@@ -358,12 +489,20 @@ public class GamePanel extends JPanel {
             }
             else if (mapVertical[(y+1)+i] == 1) {
                 g.drawImage(roadImage, 0, player.getY(i), 2000, 70, this);
+                for (int j = 0; j < 2; j++) {
+                    if (vehicleDirection[(y+1)+i] == 0) g.drawImage(carLeft, vehicleX[(y+1)+i][j], player.getY(i), this);
+                    else g.drawImage(carRight, vehicleX[(y+1)+i][j], player.getY(i), this);
+                }
+
             }
             else if (mapVertical[(y+1)+i] == 2) {
                 g.drawImage(railImage, 0, player.getY(i), 2000, 70, this);
             }
             else if (mapVertical[(y+1)+i] == 3) {
                 g.drawImage(hsrImage, 0, player.getY(i), 2000, 70, this);
+            }
+            else if (mapVertical[(y+1)+i] == 5) {
+                g.drawImage(roadClosed, 0, player.getY(i), 2000, 70, this);
             }
             else if (mapVertical[(y+1)+i] == 8) {
                 g.drawImage(startPlatImage, 0, player.getY(i), 2000, 140, this);
@@ -390,6 +529,8 @@ public class GamePanel extends JPanel {
 
         // Create a Graphics2D object
         Graphics2D g2d = (Graphics2D) g.create();
+
+
 
         // Create a circular clip
         int diameter = Math.min(imageWidth, imageHeight);
@@ -450,5 +591,12 @@ public class GamePanel extends JPanel {
                 }
             });
         }
+    }
+    static int getPlayerX() {
+        return player.getCurrentLocationX()+25;
+    }
+
+    static int getPlayerY() {
+        return yLoc+35;
     }
 }

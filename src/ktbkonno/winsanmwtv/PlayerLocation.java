@@ -5,11 +5,11 @@ public class PlayerLocation {
     private int y = 4;
     private int[] xLoc = new int[9];
     private int[] yLoc = new int[5];
-    private int panelWidth;
+    static public int panelWidth;
     private int panelHeight;
     private boolean whileMove = false;
     private int loc;
-    private int score = 3;
+    private int score = Init.score;
 
     PlayerLocation() {
         /**/
@@ -68,7 +68,7 @@ public class PlayerLocation {
     }
 
     public void deductScore() {
-        score--;
+        score+=Init.deductScore;
     }
 
     public int getScore() {

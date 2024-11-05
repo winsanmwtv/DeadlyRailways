@@ -11,16 +11,18 @@ import javax.swing.*;
 public class Init extends JFrame {
 
     // to declare something
-    static protected String gameVer = "dev-h"; // GAME VERSION
+    static protected String gameVer = "dev-i"; // GAME VERSION
     static protected final char devMode = 'c'; // c = canary (dev), b = beta (tested dev), p = preview (alpha), r = release;
     static protected final int gameTime = 5; // game time (do -1 for debug)
     static protected final boolean isDebug = true;
-    static protected final int gameLength = 300;
+    static protected final int gameLength = 120;
     static protected final int addScore = 1;
+    static protected final int deductScore = -1;
     static protected final int addTime = 5; // second
-    static protected final int carSpeed = 5;
+    static protected final int carSpeed = 3;
     static protected final int trainSpeed = 10;
     static protected final int hsrSpeed = 15;
+    static protected final int score = 5; // default hp
 
     static JFrame display = new Init();
     static JFrame gameplay = new Gameplay();
@@ -63,7 +65,7 @@ public class Init extends JFrame {
         gameplay.setLocationRelativeTo(null);
         gameplay.setVisible(true);
         GamePanel.player.setX(4);
-        GamePanel.player.setScore(3);
+        GamePanel.player.setScore(Init.score);
         GamePanel.isDone = false;
         GamePanel.y = 0;
         GamePanel.x = 4;
