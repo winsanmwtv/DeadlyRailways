@@ -68,6 +68,8 @@ public class GamePanel extends JPanel {
 
     static int[] mapVertical = new int[Init.gameLength];
     static int[][] map = new int[Init.gameLength][9];
+    static int[] vehicleDirection = new int[Init.gameLength];
+    // 0 left 1 right;
 
     static int width;
     static int height;
@@ -83,7 +85,6 @@ public class GamePanel extends JPanel {
 
         yLoc = player.getY(1);
         // Countdown.countdown.start();
-        timer.start();
         Countdown.countdown.start();
         Countdown.minute = Init.gameTime;
 
@@ -92,22 +93,20 @@ public class GamePanel extends JPanel {
             public void keyTyped(KeyEvent e) {}
 
             @Override
-            public void keyPressed(KeyEvent
-                    e) {
+            public void keyPressed(KeyEvent e) {
                 char keyChar = e.getKeyChar();
-                // System.out.println("Pressed: " + keyChar);
+                int keyCode = e.getKeyCode();
 
-                        // Update player location based on key press (optional)
-                switch (keyChar) {
-                    case 'w':
-
+                // Update player location based on key press
+                switch (keyCode) {
+                    case KeyEvent.VK_W:
+                    case KeyEvent.VK_UP:
                         if (y == 0) {
                             if (map[y+3][x] == 1) break;
                             else if (map[y+3][x] == 2) {
-                                player.setScore(player.getScore()+Init.addScore);
+                                player.setScore(player.getScore() + Init.addScore);
                                 map[y+3][x] = 0;
-                            }
-                            else if (map[y+3][x] == 3) {
+                            } else if (map[y+3][x] == 3) {
                                 Countdown.addTime(Init.addTime);
                                 map[y+3][x] = 0;
                             }
@@ -116,51 +115,49 @@ public class GamePanel extends JPanel {
                             y++;
                             break;
                         }
-
                         if (map[y+3][x] == 1) break;
                         else if (map[y+3][x] == 2) {
-                            player.setScore(player.getScore()+Init.addScore);
+                            player.setScore(player.getScore() + Init.addScore);
                             map[y+3][x] = 0;
-                        }
-                        else if (map[y+3][x] == 3) {
+                        } else if (map[y+3][x] == 3) {
                             Countdown.addTime(Init.addTime);
                             map[y+3][x] = 0;
                         }
-
-                        if (!isDone) {// Move player up
-                        if (y < Init.gameLength-6) y++;
-                        if (y >= Init.gameLength-6 && x == 4) isDone = true;
+                        if (!isDone) {
+                            if (y < Init.gameLength-6) y++;
+                            if (y >= Init.gameLength-6 && x == 4) isDone = true;
                         }
                         repaint();
                         break;
-                    case 'a':
 
+                    case KeyEvent.VK_A:
+                    case KeyEvent.VK_LEFT:
                         if (!isDone) {
                             if (x > 0) {
                                 if (map[y+2][x-1] == 1) break;
                                 else if (map[y+2][x-1] == 2) {
-                                    player.setScore(player.getScore()+Init.addScore);
+                                    player.setScore(player.getScore() + Init.addScore);
                                     map[y+2][x-1] = 0;
-                                }
-                                else if (map[y+2][x-1] == 3) {
+                                } else if (map[y+2][x-1] == 3) {
                                     Countdown.addTime(Init.addTime);
                                     map[y+2][x-1] = 0;
                                 }
-                            player.MoveLeft();
+                                player.MoveLeft();
                                 if (y >= Init.gameLength-6 && x == 5) isDone = true;
-                             x--;}
+                                x--;
+                            }
                         }
-                        // Move player left
                         repaint();
                         break;
-                    case 's':
+
+                    case KeyEvent.VK_S:
+                    case KeyEvent.VK_DOWN:
                         if (y == 1) {
                             if (map[y][x] == 1) break;
                             else if (map[y][x] == 2) {
-                                player.setScore(player.getScore()+Init.addScore);
+                                player.setScore(player.getScore() + Init.addScore);
                                 map[y][x] = 0;
-                            }
-                            else if (map[y][x] == 3) {
+                            } else if (map[y][x] == 3) {
                                 Countdown.addTime(Init.addTime);
                                 map[y][x] = 0;
                             }
@@ -171,35 +168,34 @@ public class GamePanel extends JPanel {
                         }
                         if (map[y+1][x] == 1) break;
                         else if (map[y+1][x] == 2) {
-                            player.setScore(player.getScore()+Init.addScore);
+                            player.setScore(player.getScore() + Init.addScore);
                             map[y+1][x] = 0;
-                        }
-                        else if (map[y+1][x] == 3) {
+                        } else if (map[y+1][x] == 3) {
                             Countdown.addTime(Init.addTime);
                             map[y+1][x] = 0;
                         }
-                        if (!isDone) {if (y > 0) y--;
+                        if (!isDone) {
+                            if (y > 0) y--;
                         }
-                        // Move player down
                         repaint();
                         break;
-                    case 'd':
 
-                        // Move player right
-                        if (!isDone) {if (x < 8) {
-                            if (map[y+2][x+1] == 1) break;
-                            else if (map[y+2][x+1] == 2) {
-                                player.setScore(player.getScore()+Init.addScore);
-                                map[y+2][x+1] = 0;
+                    case KeyEvent.VK_D:
+                    case KeyEvent.VK_RIGHT:
+                        if (!isDone) {
+                            if (x < 8) {
+                                if (map[y+2][x+1] == 1) break;
+                                else if (map[y+2][x+1] == 2) {
+                                    player.setScore(player.getScore() + Init.addScore);
+                                    map[y+2][x+1] = 0;
+                                } else if (map[y+2][x+1] == 3) {
+                                    Countdown.addTime(Init.addTime);
+                                    map[y+2][x+1] = 0;
+                                }
+                                player.MoveRight();
+                                if (y >= Init.gameLength-6 && x == 3) isDone = true;
+                                x++;
                             }
-                            else if (map[y+2][x+1] == 3) {
-                                Countdown.addTime(Init.addTime);
-                                map[y+2][x+1] = 0;
-                            }
-                            player.MoveRight();
-                            if (y >= Init.gameLength-6 && x == 3) isDone = true;
-
-                            x++;}
                         }
                         repaint();
                         break;
@@ -214,6 +210,7 @@ public class GamePanel extends JPanel {
 
         addKeyListener(listener);
         setFocusable(true); // Make the panel focusable for key input
+        // Make the panel focusable for key input
     }
 
 
@@ -267,6 +264,7 @@ public class GamePanel extends JPanel {
 
         for (int i = Init.gameLength-3; i < Init.gameLength; i++) mapVertical[i] = 7; // set void
         // map[Init.gameLength-5][4] = 4;
+        for (int i = 0; i < Init.gameLength; i++) vehicleDirection[i] = (int) (Math.random() * (2 - 0)) + 0;
     }
 
     // Helper method to generate random values based on specified probabilities
@@ -283,38 +281,8 @@ public class GamePanel extends JPanel {
         return values[values.length - 1]; // Fallback in case of rounding errors
     }
 
-
-
-
-    public Thread timer = new Thread(new Runnable() {
-        public void run() {
-
-            while(true){
-                try {
-                    timer.sleep(10);
-                } catch(InterruptedException e) {
-
-                }
-                repaint();
-                if (Countdown.getMinute() == 0 && Countdown.second == 0) {
-                    // Init.onGameEnd();
-                    Countdown.countdown.interrupt();
-                    // break;
-                }
-                if (y != 0) yLoc = player.getY(2);
-                repaint();
-            }
-        }
-    });
-
-    public static int getWidthSize() {
-        return width;
-    }
-    public static int getHeightSize() {
-        return height;
-    }
-
     public void paintComponent(Graphics g) {
+        if (y != 0) yLoc = player.getY(2);
         super.paintComponent(g);
         int xSize = getWidth();
         int ySize = getHeight();
@@ -443,6 +411,7 @@ public class GamePanel extends JPanel {
         else if (isDone) {
             g.drawImage(winImage, (getWidth() - 1920)/2, (getHeight() - 1080)/2, 1920, 1080, this);
             g.drawString("Your HP left: "+player.getScore(), (getWidth()/2)-150, (getHeight()/2)+50);
+            g.drawString("Total used time: "+Countdown.getTotalTime(), (getWidth()/2)-150, (getHeight()/2)+70);
             mainMenuButton.setBounds(getWidth() / 2, (getHeight() / 2) + 30, 100, 40);
             add(mainMenuButton);
             mainMenuButton.addActionListener(new ActionListener() {

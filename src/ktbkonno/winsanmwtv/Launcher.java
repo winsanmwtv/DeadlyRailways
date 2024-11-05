@@ -25,23 +25,8 @@ public class Launcher extends JPanel {
     private JButton exitButton = new JButton(exitIcon);
 
     Launcher() {
-        // add(new LauncherUtil());
-        runner.start();
         repaint();
     }
-
-    public Thread runner = new Thread(new Runnable() {
-        public void run() {
-            while(true){
-                try {
-                    runner.sleep(10);
-                } catch(InterruptedException e) {
-
-                }
-                repaint();
-            }
-        }
-    });
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

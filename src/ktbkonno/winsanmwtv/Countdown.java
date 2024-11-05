@@ -4,8 +4,12 @@ public class Countdown {
     static public int second;
     static public int minute;
 
-    public static boolean isNotHalt = false;
+    static public int usedMin = 0;
+    static public int usedSecond = 0;
 
+
+    public static boolean isNotHalt = false;
+    static public boolean playStatus = false;
     Countdown() {
         //countdown.start();
     }
@@ -31,30 +35,42 @@ public class Countdown {
         }
     }
 
+    static public String getTotalTime() {
+        if (usedSecond < 10) return usedMin+":0"+usedSecond;
+        return usedMin+":"+usedSecond;
+    }
+
     public static Thread countdown = new Thread(new Runnable() {
         public void run() {
             second = 0;
             minute = Init.gameTime;
+
             while(true){
-                try {
-                    countdown.sleep(1000);
-                } catch(InterruptedException e) {
+                    try {
+                        countdown.sleep(1000);
+                    } catch (InterruptedException e) {
+
+                    }
+                    if (second > 0) {
+                        second--;
+                        // System.out.println("Timer: "+minute+":"+getSecond());
+                    } else if (second == 0 && minute > 0) {
+                        second = 59;
+                        minute--;
+                        // System.out.println("Timer: "+minute+":"+getSecond());
+                    } else if (minute == 0 && second == 0) {
+                        // break;
+                        // System.out.println("TIME OUT");
+                    }
+                    if (!GamePanel.isDone) {
+                        if (usedSecond < 60) {
+                            usedSecond++;
+                        } else if (usedSecond == 60) {
+                            usedSecond = 0;
+                            usedMin++;
+                        }
 
                 }
-                if (second > 0) {
-                    second--;
-                    // System.out.println("Timer: "+minute+":"+getSecond());
-                }
-                else if (second == 0 && minute > 0) {
-                    second = 59;
-                    minute--;
-                    // System.out.println("Timer: "+minute+":"+getSecond());
-                }
-                else if (minute == 0 && second == 0) {
-                    // break;
-                    // System.out.println("TIME OUT");
-                }
-
             }
         }
     });

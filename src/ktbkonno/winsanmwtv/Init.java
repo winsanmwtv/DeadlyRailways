@@ -10,18 +10,34 @@ import javax.swing.*;
 
 public class Init extends JFrame {
 
-    static public final String gameVer = "dev-f"; // GAME VERSION
-    static public final int gameTime = 5; // game time (do -1 for debug)
-    static public final boolean isDebug = true;
-    static public final int gameLength = 1000;
-    static public final int addScore = 1;
-    static public final int addTime = 5; // second
+    // to declare something
+    static protected String gameVer = "dev-h"; // GAME VERSION
+    static protected final char devMode = 'c'; // c = canary (dev), b = beta (tested dev), p = preview (alpha), r = release;
+    static protected final int gameTime = 5; // game time (do -1 for debug)
+    static protected final boolean isDebug = true;
+    static protected final int gameLength = 300;
+    static protected final int addScore = 1;
+    static protected final int addTime = 5; // second
 
     static JFrame display = new Init();
     static JFrame gameplay = new Gameplay();
 
     Init() { // main constructor
         add(new Launcher());
+        switch(devMode) {
+            case 'c':
+                gameVer = gameVer+" (Canary Release, use with caution!)";
+                break;
+            case 'b':
+                gameVer = gameVer+" (Beta Release, if you find any bug please report!)";
+                break;
+            case 'p':
+                gameVer = gameVer+" (Release Preview)";
+                break;
+            default:
+                break;
+        }
+        if (isDebug) gameVer = gameVer+" | Development Mode is turned ON";
     }
 
     public static void main(String[] args) { // void main runner and init
@@ -31,8 +47,7 @@ public class Init extends JFrame {
         display.setVisible(true);
         display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameplay.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //gameplay.setFocusable(false);
-        // Countdown.countdown.interrupt();
+        Countdown.playStatus = false;
     }
 
     static public void startGameInit() {
@@ -41,7 +56,7 @@ public class Init extends JFrame {
         display.setLocationRelativeTo(null);
         display.setVisible(false);
         gameplay.setSize(850, 530);
-        gameplay.setTitle("Deadly Railways - In Game (Game Version "+gameVer+")");
+        gameplay.setTitle("Deadly Railways - In Game (Game Version: "+gameVer+")");
         gameplay.setLocationRelativeTo(null);
         gameplay.setVisible(true);
         GamePanel.player.setX(4);
@@ -50,10 +65,8 @@ public class Init extends JFrame {
         GamePanel.y = 0;
         GamePanel.x = 4;
         GamePanel.yLoc = GamePanel.player.getY(1);
-        // GamePanel.zeroCount = 0;
-        //gameplay.setFocusable(true);
-        // Countdown.countdown.start();
-
+        Countdown.usedSecond = 0; Countdown.usedMin = 0;
+        Countdown.playStatus = true;
     }
 
     static public void onGameEnd() {
@@ -62,11 +75,10 @@ public class Init extends JFrame {
         display.setLocationRelativeTo(null);
         display.setVisible(true);
         gameplay.setSize(850, 530);
-        gameplay.setTitle("Deadly Railways - In Game (Game Version "+gameVer+")");
+        gameplay.setTitle("Deadly Railways - In Game (Game Version: "+gameVer+")");
         gameplay.setLocationRelativeTo(null);
         gameplay.setVisible(false);
         GamePanel.isDone = false;
-        //gameplay.setFocusable(false);
-        // Countdown.countdown.interrupt();
+        Countdown.playStatus = false;
     }
 }
