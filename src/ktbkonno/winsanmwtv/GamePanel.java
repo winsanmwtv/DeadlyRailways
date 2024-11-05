@@ -53,6 +53,15 @@ public class GamePanel extends JPanel {
     private final URL homeSweetHomeURL = this.getClass().getResource("image/home_sweet_home.png");
     private final Image homeSweetHome = new ImageIcon(homeSweetHomeURL).getImage();
 
+    private final URL myHome = this.getClass().getResource("image/home.png");
+    private final Image home = new ImageIcon(myHome).getImage();
+
+    private final URL hpURL = this.getClass().getResource("image/hp.png");
+    private final Image hp = new ImageIcon(hpURL).getImage();
+
+    private final URL clockURL = this.getClass().getResource("image/clock.png");
+    private final Image clock = new ImageIcon(clockURL).getImage();
+
     // vertical status: 0 = platform, 1 = road, 2 = rail, 3 = hsr_rail, 9 = endLoc, 8 = startLoc;
     // horizontal status platform: 0 = void, 1 = signal pole, 2 = assistanceItem;
     // 26-30 would must void;
@@ -94,6 +103,14 @@ public class GamePanel extends JPanel {
 
                         if (y == 0) {
                             if (map[y+3][x] == 1) break;
+                            else if (map[y+3][x] == 2) {
+                                player.setScore(player.getScore()+Init.addScore);
+                                map[y+3][x] = 0;
+                            }
+                            else if (map[y+3][x] == 3) {
+                                Countdown.addTime(Init.addTime);
+                                map[y+3][x] = 0;
+                            }
                             yLoc = player.getY(2);
                             repaint();
                             y++;
@@ -101,10 +118,18 @@ public class GamePanel extends JPanel {
                         }
 
                         if (map[y+3][x] == 1) break;
+                        else if (map[y+3][x] == 2) {
+                            player.setScore(player.getScore()+Init.addScore);
+                            map[y+3][x] = 0;
+                        }
+                        else if (map[y+3][x] == 3) {
+                            Countdown.addTime(Init.addTime);
+                            map[y+3][x] = 0;
+                        }
 
                         if (!isDone) {// Move player up
                         if (y < Init.gameLength-6) y++;
-                        if (y >= Init.gameLength-6) isDone = true;
+                        if (y >= Init.gameLength-6 && x == 4) isDone = true;
                         }
                         repaint();
                         break;
@@ -113,7 +138,16 @@ public class GamePanel extends JPanel {
                         if (!isDone) {
                             if (x > 0) {
                                 if (map[y+2][x-1] == 1) break;
+                                else if (map[y+2][x-1] == 2) {
+                                    player.setScore(player.getScore()+Init.addScore);
+                                    map[y+2][x-1] = 0;
+                                }
+                                else if (map[y+2][x-1] == 3) {
+                                    Countdown.addTime(Init.addTime);
+                                    map[y+2][x-1] = 0;
+                                }
                             player.MoveLeft();
+                                if (y >= Init.gameLength-6 && x == 5) isDone = true;
                              x--;}
                         }
                         // Move player left
@@ -122,12 +156,28 @@ public class GamePanel extends JPanel {
                     case 's':
                         if (y == 1) {
                             if (map[y][x] == 1) break;
+                            else if (map[y][x] == 2) {
+                                player.setScore(player.getScore()+Init.addScore);
+                                map[y][x] = 0;
+                            }
+                            else if (map[y][x] == 3) {
+                                Countdown.addTime(Init.addTime);
+                                map[y][x] = 0;
+                            }
                             yLoc = player.getY(1);
                             repaint();
                             y--;
                             break;
                         }
                         if (map[y+1][x] == 1) break;
+                        else if (map[y+1][x] == 2) {
+                            player.setScore(player.getScore()+Init.addScore);
+                            map[y+1][x] = 0;
+                        }
+                        else if (map[y+1][x] == 3) {
+                            Countdown.addTime(Init.addTime);
+                            map[y+1][x] = 0;
+                        }
                         if (!isDone) {if (y > 0) y--;
                         }
                         // Move player down
@@ -138,7 +188,16 @@ public class GamePanel extends JPanel {
                         // Move player right
                         if (!isDone) {if (x < 8) {
                             if (map[y+2][x+1] == 1) break;
+                            else if (map[y+2][x+1] == 2) {
+                                player.setScore(player.getScore()+Init.addScore);
+                                map[y+2][x+1] = 0;
+                            }
+                            else if (map[y+2][x+1] == 3) {
+                                Countdown.addTime(Init.addTime);
+                                map[y+2][x+1] = 0;
+                            }
                             player.MoveRight();
+                            if (y >= Init.gameLength-6 && x == 3) isDone = true;
 
                             x++;}
                         }
@@ -193,7 +252,7 @@ public class GamePanel extends JPanel {
                     do {
                         zeroCount = 0;
                         for (j = 0; j < 9; j++) {
-                            map[i][j] = getRandomValue(new int[] { 0, 1, 2, 3 }, new double[] { 0.75, 0.15, 0.05, 0.05 });
+                            map[i][j] = getRandomValue(new int[] { 0, 1, 2, 3 }, new double[] { 0.83, 0.15, 0.01, 0.01 });
                             if (map[i][j] == 0) {
                                 zeroCount++;
                             }
@@ -206,7 +265,8 @@ public class GamePanel extends JPanel {
             }
         }
 
-        for (int i = Init.gameLength-4; i < Init.gameLength; i++) mapVertical[i] = 7; // set void
+        for (int i = Init.gameLength-3; i < Init.gameLength; i++) mapVertical[i] = 7; // set void
+        // map[Init.gameLength-5][4] = 4;
     }
 
     // Helper method to generate random values based on specified probabilities
@@ -241,6 +301,7 @@ public class GamePanel extends JPanel {
                     Countdown.countdown.interrupt();
                     // break;
                 }
+                if (y != 0) yLoc = player.getY(2);
                 repaint();
             }
         }
@@ -269,27 +330,34 @@ public class GamePanel extends JPanel {
             //System.out.println(mapVertical[y+i]);
 
             if (mapVertical[y+i] == 0) {
-                g.drawImage(platformImage, 0, player.getY(i), getWidth(), 70, this);
+                g.drawImage(platformImage, 0, player.getY(i), 2000, 70, this);
                 for (int j = 0; j < 9; j++) {
                     if (map[y+i][j] == 1) {
                         g.drawImage(signalImage, player.getActualX(j), player.getY(i) + 10, this);
                     }
+                    else if (map[y+i][j] == 2) {
+                        g.drawImage(hp, player.getActualX(j), player.getY(i)+10, this);
+                    }
+                    else if (map[y+i][j] == 3) {
+                        g.drawImage(clock, player.getActualX(j), player.getY(i)+10, this);
+                    }
                 }
             }
             else if (mapVertical[y+i] == 1) {
-                g.drawImage(roadImage, 0, player.getY(i), getWidth(), 70, this);
+                g.drawImage(roadImage, 0, player.getY(i), 2000, 70, this);
             }
             else if (mapVertical[y+i] == 2) {
-                g.drawImage(railImage, 0, player.getY(i), getWidth(), 70, this);
+                g.drawImage(railImage, 0, player.getY(i), 2000, 70, this);
             }
             else if (mapVertical[y+i] == 3) {
-                g.drawImage(hsrImage, 0, player.getY(i), getWidth(), 70, this);
+                g.drawImage(hsrImage, 0, player.getY(i), 2000, 70, this);
             }
             else if (mapVertical[y+i] == 8) {
-                g.drawImage(startPlatImage, 0, player.getY(i), getWidth(), 140, this);
+                g.drawImage(startPlatImage, 0, player.getY(i), 2000, 140, this);
             }
             else if (mapVertical[y+i] == 9) {
-                g.drawImage(homeSweetHome, 0, player.getY(i)-350, getWidth(), 420, this);
+                g.drawImage(homeSweetHome, 0, player.getY(i)-350, 2000, 420, this);
+                g.drawImage(home, player.getActualX(4), player.getY(i)+10, this);
             }
 
         }}
@@ -298,24 +366,30 @@ public class GamePanel extends JPanel {
             //System.out.println(mapVertical[(y+1)+i]);
 
             if (mapVertical[(y+1)+i] == 0) {
-                g.drawImage(platformImage, 0, player.getY(i), getWidth(), 70, this);
+                g.drawImage(platformImage, 0, player.getY(i), 2000, 70, this);
                 for (int j = 0; j < 9; j++) {
                     if (map[(y+1)+i][j] == 1) {
                         g.drawImage(signalImage, player.getActualX(j), player.getY(i) + 10, this);
                     }
+                    else if (map[y+i][j] == 2) {
+                        g.drawImage(hp, player.getActualX(j), player.getY(i)+10, this);
+                    }
+                    else if (map[y+i][j] == 3) {
+                        g.drawImage(clock, player.getActualX(j), player.getY(i)+10, this);
+                    }
                 }
             }
             else if (mapVertical[(y+1)+i] == 1) {
-                g.drawImage(roadImage, 0, player.getY(i), getWidth(), 70, this);
+                g.drawImage(roadImage, 0, player.getY(i), 2000, 70, this);
             }
             else if (mapVertical[(y+1)+i] == 2) {
-                g.drawImage(railImage, 0, player.getY(i), getWidth(), 70, this);
+                g.drawImage(railImage, 0, player.getY(i), 2000, 70, this);
             }
             else if (mapVertical[(y+1)+i] == 3) {
-                g.drawImage(hsrImage, 0, player.getY(i), getWidth(), 70, this);
+                g.drawImage(hsrImage, 0, player.getY(i), 2000, 70, this);
             }
             else if (mapVertical[(y+1)+i] == 8) {
-                g.drawImage(startPlatImage, 0, player.getY(i), getWidth(), 140, this);
+                g.drawImage(startPlatImage, 0, player.getY(i), 2000, 140, this);
             }
 
         }}

@@ -23,6 +23,14 @@ public class Countdown {
         return minute;
     }
 
+    static public void addTime(int time) {
+        if (second+time < 60) second+=time;
+        else {
+            minute++;
+            second = (second+time)-60;
+        }
+    }
+
     public static Thread countdown = new Thread(new Runnable() {
         public void run() {
             second = 0;
@@ -44,7 +52,7 @@ public class Countdown {
                 }
                 else if (minute == 0 && second == 0) {
                     // break;
-                    System.out.println("TIME OUT");
+                    // System.out.println("TIME OUT");
                 }
 
             }

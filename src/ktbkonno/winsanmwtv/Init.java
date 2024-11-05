@@ -11,9 +11,11 @@ import javax.swing.*;
 public class Init extends JFrame {
 
     static public final String gameVer = "dev-f"; // GAME VERSION
-    static public final int gameTime = 10; // game time (do -1 for debug)
+    static public final int gameTime = 5; // game time (do -1 for debug)
     static public final boolean isDebug = true;
-    static public final int gameLength = 100;
+    static public final int gameLength = 1000;
+    static public final int addScore = 1;
+    static public final int addTime = 5; // second
 
     static JFrame display = new Init();
     static JFrame gameplay = new Gameplay();
