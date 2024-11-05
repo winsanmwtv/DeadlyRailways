@@ -19,6 +19,7 @@ public class GamePanel extends JPanel {
     public static int coin = 0;
 
     static public boolean isDone = false;
+    static public boolean isDead = false;
 
     private Image loadImage(String path) {
         URL url = this.getClass().getResource(path);
@@ -52,6 +53,7 @@ public class GamePanel extends JPanel {
     private final Image hsrClosed = loadImage("image/hsrClosed.png");
     private final Image coinImage = loadImage("image/coin.png");
     private final Image hsrComing = loadImage("image/hsrComing.png");
+    private final Image heart = loadImage("image/heart.png");
 
     // vertical status: 0 = platform, 1 = road, 2 = rail, 3 = hsr_rail, 9 = endLoc, 8 = startLoc;
     // 4 = void; 5 = roadClosed;
@@ -78,6 +80,7 @@ public class GamePanel extends JPanel {
 
 
     GamePanel() {
+        isDead = false;
         isRun = true;
         vehicleRunner.start();
         yLoc = player.getY(1);
@@ -101,6 +104,7 @@ public class GamePanel extends JPanel {
                 switch (keyCode) {
                     case KeyEvent.VK_W:
                     case KeyEvent.VK_UP:
+                        if (isDead) break;
                         if (y == 0) {
                             // Countdown.playStatus = true;
                             if (map[y+3][x] == 1) break;
@@ -143,6 +147,7 @@ public class GamePanel extends JPanel {
 
                     case KeyEvent.VK_A:
                     case KeyEvent.VK_LEFT:
+                        if (isDead) break;
                         if (!isDone) {
                             // Countdown.playStatus = true;
                             if (x > 0) {
@@ -186,6 +191,7 @@ public class GamePanel extends JPanel {
 
                     case KeyEvent.VK_S:
                     case KeyEvent.VK_DOWN:
+                        if (isDead) break;
                         if (y == 1) {
                             // Countdown.playStatus = true;
                             if (map[y][x] == 1) break;
@@ -226,6 +232,7 @@ public class GamePanel extends JPanel {
 
                     case KeyEvent.VK_D:
                     case KeyEvent.VK_RIGHT:
+                        if (isDead) break;
                         if (!isDone) {
                             //Countdown.playStatus = true;
                             if (x < 8) {
@@ -405,7 +412,7 @@ public class GamePanel extends JPanel {
             do {
                 // Assign values to mapVertical based on specified probabilities
                 value = getRandomValue(new int[]{0, 1, 2, 3}, new double[]{0.50, 0.30, 0.15, 0.05});
-            } while ((value == 2 || value == 3) && (mapVertical[i - 1] == 2 || mapVertical[i - 1] == 3));
+            } while ((value == 2 || value == 3) && (mapVertical[i - 2] == 2 || mapVertical[i - 2] == 3));
 
             mapVertical[i] = value;
 
@@ -525,6 +532,12 @@ public class GamePanel extends JPanel {
         player.setHeight(getHeight());
         g.drawImage(backgroundImage, 0, 0, xSize, ySize, this);
         g.setColor(Color.WHITE);
+
+        // heart
+        for (int i = 0; i < player.getScore(); i++) {
+            int tmpX = ((getWidth()-20)-15)-(i*30);
+            g.drawImage(heart, tmpX, 15, 25, 25, this);
+        }
 
         // do get Y
         if (y >= 1) {for (int i = 1; i <= 5; i++) {
@@ -651,7 +664,7 @@ public class GamePanel extends JPanel {
         if (y == 0) yLoc = player.getY(1);
 
         g.drawString("Time left: " + Countdown.getMinute() + ":" + Countdown.getSecond(), 15, 15);
-        g.drawString("HP Left: "+player.getScore()+", Coin: "+coin, 15, 30);
+        g.drawString("Total steps so far: "+y+" steps, Coin: "+coin, 15, 30);
         if (Init.isDebug) {
             g.drawString("X: "+x+" Y: "+y, 15, 45);
             g.drawString("Game Version: "+ Init.gameVer, 15, getHeight()-15);
@@ -683,7 +696,13 @@ public class GamePanel extends JPanel {
         g2d.dispose();
         // System.out.println("Y: "+y+" Max: "+Init.gameLength);
 
-        if (player.getScore() == 0) {
+        for (int i = 0; i < player.getScore(); i++) {
+            int tmpX = ((getWidth()-20)-15)-(i*30);
+            g.drawImage(heart, tmpX, 15, 25, 25, this);
+        }
+
+        if (player.getScore() <= 0) {
+            isDead = true;
             g.drawImage(outofscore, (getWidth() - 1920)/2, (getHeight() - 1080)/2, 1920, 1080, this);
             //Countdown.playStatus = false;
             mainMenuButton.setBounds(getWidth() / 2, (getHeight() / 2) + 30, 100, 40);
@@ -699,6 +718,7 @@ public class GamePanel extends JPanel {
         }
 
         else if (isDone) {
+            isDead = true;
             g.drawImage(winImage, (getWidth() - 1920)/2, (getHeight() - 1080)/2, 1920, 1080, this);
             // Countdown.playStatus = false;
             g.drawString("Your HP left: "+player.getScore(), (getWidth()/2)-150, (getHeight()/2)+50);
@@ -716,7 +736,8 @@ public class GamePanel extends JPanel {
             });
         }
 
-        else if (Countdown.getMinute() == 0 && Countdown.second == 0) {
+        else if (Countdown.getMinute() <= 0 && Countdown.second <= 0) {
+            isDead = true;
             g.drawImage(outoftime, (getWidth() - 1920)/2, (getHeight() - 1080)/2, 1920, 1080, this);
             //Countdown.playStatus = false;
             mainMenuButton.setBounds(getWidth() / 2, (getHeight() / 2) + 30, 100, 40);
@@ -730,6 +751,8 @@ public class GamePanel extends JPanel {
                 }
             });
         }
+        // heart
+
     }
     static int getPlayerX() {
         return player.getCurrentLocationX()+25;

@@ -13,14 +13,14 @@ public class Init extends JFrame {
     static protected final char devMode = 'b'; // Game mode
     static protected final int gameTime = 5; // Game time (use -1 for debug)
     static protected final boolean isDebug = false;
-    static protected final int gameLength = 250;
-    static protected final int addScore = 1;
-    static protected final int deductScore = -1;
-    static protected final int addTime = 5; // Additional time in seconds
+    static protected final int gameLength = 150+6;
+    static protected final int addScore = 1; //HP
+    static protected final int deductScore = -1; //HP
+    static protected final int addTime = 10; // Additional time in seconds
     static protected final int carSpeed = 3;
     static protected final int trainSpeed = 6;
     static protected final int hsrSpeed = 17;
-    static protected final int score = 5; // Default score
+    static protected final int score = 3; // Default HP
     static public boolean isThisRunning = true;
 
     static JFrame display = new Init();  // Launcher frame
