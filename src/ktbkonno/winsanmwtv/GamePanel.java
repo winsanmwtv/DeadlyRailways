@@ -8,6 +8,8 @@ import java.net.URL;
 
 public class GamePanel extends JPanel {
 
+    // static protected int zeroCount = 0;
+
     static PlayerLocation player = new PlayerLocation();
 
     public static int y = 1;
@@ -47,6 +49,9 @@ public class GamePanel extends JPanel {
 
     private final URL startPlatURL = this.getClass().getResource("image/startPlat.png");
     private final Image startPlatImage = new ImageIcon(startPlatURL).getImage();
+
+    private final URL homeSweetHomeURL = this.getClass().getResource("image/home_sweet_home.png");
+    private final Image homeSweetHome = new ImageIcon(homeSweetHomeURL).getImage();
 
     // vertical status: 0 = platform, 1 = road, 2 = rail, 3 = hsr_rail, 9 = endLoc, 8 = startLoc;
     // horizontal status platform: 0 = void, 1 = signal pole, 2 = assistanceItem;
@@ -154,27 +159,72 @@ public class GamePanel extends JPanel {
 
 
 
+    static int zeroCount; // Declared outside the init method
+
     static public void init() {
         yLoc = player.getY(1);
         mapVertical[2] = 8;
-        mapVertical[Init.gameLength-1] = 9;
-        for (int i = 3; i < Init.gameLength; i++) {
-            mapVertical[i] = (int) (0 + (Math.random() * (4 - 0)));
-            for (int j = 0; j < 9; j++) {
-                map[i][j] = 0;
-            }
-            if (mapVertical[i] == 0) {
-                for (int j = 0; j < 9; j++) {
-                    map[i][j] = (int) (0 + (Math.random() * (3 - 0)));
+        mapVertical[Init.gameLength - 4] = 9;
+        int minWalkableZeros = 5;      // Minimum number of 0's required in each row for walkability
+        int maxSequenceLength = 3;     // Maximum allowed length of consecutive non-0 values in mapVertical
+
+        for (int i = 3; i < Init.gameLength-4; i++) {
+            // Assign values to mapVertical based on specified probabilities
+            mapVertical[i] = getRandomValue(new int[] { 0, 1, 2, 3 }, new double[] { 0.50, 0.30, 0.15, 0.05 });
+
+            // Check for consecutive non-0 sequence length
+            int consecutiveCount = 1;
+            for (int j = 3; j < i; j++) {
+                if (mapVertical[j] == mapVertical[j - 1] && mapVertical[j] != 0) {
+                    consecutiveCount++;
+                    if (consecutiveCount > maxSequenceLength) {
+                        mapVertical[j] = 0; // Insert a 0 to break the sequence
+                        consecutiveCount = 1;
+                    }
+                } else {
+                    consecutiveCount = 1;
                 }
             }
-            else {
-                for (int j = 0; j < 9; j++) {
-                    map[i][j] = 0;
+
+            // Initialize map[i][j] based on mapVertical[i]
+            for (int j = 0; j < 9; j++) {
+                if (mapVertical[i] == 0) {
+                    // Generate row ensuring minimum number of 0s for walkability
+                    do {
+                        zeroCount = 0;
+                        for (j = 0; j < 9; j++) {
+                            map[i][j] = getRandomValue(new int[] { 0, 1, 2, 3 }, new double[] { 0.75, 0.15, 0.05, 0.05 });
+                            if (map[i][j] == 0) {
+                                zeroCount++;
+                            }
+                        }
+                        // Regenerate if not enough 0s
+                    } while (zeroCount < minWalkableZeros);
+                } else {
+                    map[i][j] = 0; // Non-walkable if mapVertical[i] != 0
                 }
             }
         }
+
+        for (int i = Init.gameLength-4; i < Init.gameLength; i++) mapVertical[i] = 7; // set void
     }
+
+    // Helper method to generate random values based on specified probabilities
+    private static int getRandomValue(int[] values, double[] probabilities) {
+        double random = Math.random();
+        double cumulativeProbability = 0.0;
+
+        for (int i = 0; i < values.length; i++) {
+            cumulativeProbability += probabilities[i];
+            if (random <= cumulativeProbability) {
+                return values[i];
+            }
+        }
+        return values[values.length - 1]; // Fallback in case of rounding errors
+    }
+
+
+
 
     public Thread timer = new Thread(new Runnable() {
         public void run() {
@@ -237,6 +287,9 @@ public class GamePanel extends JPanel {
             }
             else if (mapVertical[y+i] == 8) {
                 g.drawImage(startPlatImage, 0, player.getY(i), getWidth(), 140, this);
+            }
+            else if (mapVertical[y+i] == 9) {
+                g.drawImage(homeSweetHome, 0, player.getY(i)-350, getWidth(), 420, this);
             }
 
         }}

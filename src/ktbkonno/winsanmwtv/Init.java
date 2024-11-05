@@ -10,7 +10,7 @@ import javax.swing.*;
 
 public class Init extends JFrame {
 
-    static public final String gameVer = "beta-1"; // GAME VERSION
+    static public final String gameVer = "dev-f"; // GAME VERSION
     static public final int gameTime = 10; // game time (do -1 for debug)
     static public final boolean isDebug = true;
     static public final int gameLength = 100;
@@ -48,6 +48,7 @@ public class Init extends JFrame {
         GamePanel.y = 0;
         GamePanel.x = 4;
         GamePanel.yLoc = GamePanel.player.getY(1);
+        // GamePanel.zeroCount = 0;
         //gameplay.setFocusable(true);
         // Countdown.countdown.start();
 

@@ -76,7 +76,7 @@ public class PlayerLocation {
     }
 
     public int getCurrentLocationX() {
-        if (!whileMove) return xLoc[x];
+        if (!whileMove) return xLoc[x]+25;
         else return loc;
     }
 
@@ -113,6 +113,6 @@ public class PlayerLocation {
     }
 
     public int getActualX(int x) {
-        return xLoc[x];
+        return xLoc[x]+25;
     }
 }
