@@ -18,6 +18,9 @@ public class Init extends JFrame {
     static protected final int gameLength = 300;
     static protected final int addScore = 1;
     static protected final int addTime = 5; // second
+    static protected final int carSpeed = 5;
+    static protected final int trainSpeed = 10;
+    static protected final int hsrSpeed = 15;
 
     static JFrame display = new Init();
     static JFrame gameplay = new Gameplay();

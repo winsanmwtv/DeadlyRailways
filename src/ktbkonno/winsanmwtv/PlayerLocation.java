@@ -115,4 +115,5 @@ public class PlayerLocation {
     public int getActualX(int x) {
         return xLoc[x]+25;
     }
+
 }

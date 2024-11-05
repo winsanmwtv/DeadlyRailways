@@ -46,6 +46,7 @@ public class Countdown {
             minute = Init.gameTime;
 
             while(true){
+                // System.out.println(playStatus);
                     try {
                         countdown.sleep(1000);
                     } catch (InterruptedException e) {
@@ -69,8 +70,8 @@ public class Countdown {
                             usedSecond = 0;
                             usedMin++;
                         }
+                    }
 
-                }
             }
         }
     });

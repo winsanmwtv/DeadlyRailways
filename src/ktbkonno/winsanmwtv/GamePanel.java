@@ -102,6 +102,7 @@ public class GamePanel extends JPanel {
                     case KeyEvent.VK_W:
                     case KeyEvent.VK_UP:
                         if (y == 0) {
+                            Countdown.playStatus = true;
                             if (map[y+3][x] == 1) break;
                             else if (map[y+3][x] == 2) {
                                 player.setScore(player.getScore() + Init.addScore);
@@ -117,13 +118,16 @@ public class GamePanel extends JPanel {
                         }
                         if (map[y+3][x] == 1) break;
                         else if (map[y+3][x] == 2) {
+                            Countdown.playStatus = true;
                             player.setScore(player.getScore() + Init.addScore);
                             map[y+3][x] = 0;
                         } else if (map[y+3][x] == 3) {
+                            Countdown.playStatus = true;
                             Countdown.addTime(Init.addTime);
                             map[y+3][x] = 0;
                         }
                         if (!isDone) {
+                            Countdown.playStatus = true;
                             if (y < Init.gameLength-6) y++;
                             if (y >= Init.gameLength-6 && x == 4) isDone = true;
                         }
@@ -133,6 +137,7 @@ public class GamePanel extends JPanel {
                     case KeyEvent.VK_A:
                     case KeyEvent.VK_LEFT:
                         if (!isDone) {
+                            Countdown.playStatus = true;
                             if (x > 0) {
                                 if (map[y+2][x-1] == 1) break;
                                 else if (map[y+2][x-1] == 2) {
@@ -153,6 +158,7 @@ public class GamePanel extends JPanel {
                     case KeyEvent.VK_S:
                     case KeyEvent.VK_DOWN:
                         if (y == 1) {
+                            Countdown.playStatus = true;
                             if (map[y][x] == 1) break;
                             else if (map[y][x] == 2) {
                                 player.setScore(player.getScore() + Init.addScore);
@@ -168,9 +174,11 @@ public class GamePanel extends JPanel {
                         }
                         if (map[y+1][x] == 1) break;
                         else if (map[y+1][x] == 2) {
+                            Countdown.playStatus = true;
                             player.setScore(player.getScore() + Init.addScore);
                             map[y+1][x] = 0;
                         } else if (map[y+1][x] == 3) {
+                            Countdown.playStatus = true;
                             Countdown.addTime(Init.addTime);
                             map[y+1][x] = 0;
                         }
@@ -183,6 +191,7 @@ public class GamePanel extends JPanel {
                     case KeyEvent.VK_D:
                     case KeyEvent.VK_RIGHT:
                         if (!isDone) {
+                            Countdown.playStatus = true;
                             if (x < 8) {
                                 if (map[y+2][x+1] == 1) break;
                                 else if (map[y+2][x+1] == 2) {
@@ -371,6 +380,7 @@ public class GamePanel extends JPanel {
             g.drawString("Game Version: "+ Init.gameVer, 15, getHeight()-15);
         }
 
+        g.fillOval(player.getCurrentLocationX()-2, yLoc+8, 54, 54);
 
         // Draw user image as a circle
         int userImageX = player.getCurrentLocationX();
@@ -396,6 +406,7 @@ public class GamePanel extends JPanel {
 
         if (player.getScore() == 0) {
             g.drawImage(outofscore, (getWidth() - 1920)/2, (getHeight() - 1080)/2, 1920, 1080, this);
+            Countdown.playStatus = false;
             mainMenuButton.setBounds(getWidth() / 2, (getHeight() / 2) + 30, 100, 40);
             add(mainMenuButton);
             mainMenuButton.addActionListener(new ActionListener() {
@@ -410,7 +421,8 @@ public class GamePanel extends JPanel {
 
         else if (isDone) {
             g.drawImage(winImage, (getWidth() - 1920)/2, (getHeight() - 1080)/2, 1920, 1080, this);
-            g.drawString("Your HP left: "+player.getScore(), (getWidth()/2)-150, (getHeight()/2)+50);
+            Countdown.playStatus = false;
+            g.drawString("Your HP (Score) left: "+player.getScore(), (getWidth()/2)-150, (getHeight()/2)+50);
             g.drawString("Total used time: "+Countdown.getTotalTime(), (getWidth()/2)-150, (getHeight()/2)+70);
             mainMenuButton.setBounds(getWidth() / 2, (getHeight() / 2) + 30, 100, 40);
             add(mainMenuButton);
@@ -426,6 +438,7 @@ public class GamePanel extends JPanel {
 
         else if (Countdown.getMinute() == 0 && Countdown.second == 0) {
             g.drawImage(outoftime, (getWidth() - 1920)/2, (getHeight() - 1080)/2, 1920, 1080, this);
+            Countdown.playStatus = false;
             mainMenuButton.setBounds(getWidth() / 2, (getHeight() / 2) + 30, 100, 40);
             add(mainMenuButton);
             mainMenuButton.addActionListener(new ActionListener() {

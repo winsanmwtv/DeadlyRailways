@@ -1,6 +1,11 @@
 package ktbkonno.winsanmwtv;
 
 public class VehicleCompute {
+
+    VehicleCompute() {
+
+    }
+
     Thread vehicleRunner = new Thread(new Runnable() {
         @Override
         public void run() {
