@@ -94,6 +94,11 @@ public class PlayerLocation {
             x--;
             // System.out.println(x);
         }
+        else {
+            // System.out.println("to edge");
+            x = 8;
+            // System.out.println(x);
+        }
     }
 
     public void MoveRight() {
@@ -108,6 +113,11 @@ public class PlayerLocation {
             }
             whileMove = false;
             x++;
+            // System.out.println(x);
+        }
+        else {
+            // System.out.println("to edge");
+            x = 0;
             // System.out.println(x);
         }
     }

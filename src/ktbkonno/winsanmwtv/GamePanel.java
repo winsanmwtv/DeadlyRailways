@@ -96,6 +96,8 @@ public class GamePanel extends JPanel {
     static int[][] vehicleX = new int[Init.gameLength][2];
     // 0 left 1 right;
 
+    static boolean isRun = false;
+
     static int width;
     static int height;
 
@@ -107,10 +109,15 @@ public class GamePanel extends JPanel {
 
 
     GamePanel() {
+        isRun = true;
         vehicleRunner.start();
         yLoc = player.getY(1);
         // Countdown.countdown.start();
         Countdown.minute = Init.gameTime;
+
+
+
+
 
         KeyListener listener = new KeyListener() {
             @Override
@@ -175,6 +182,21 @@ public class GamePanel extends JPanel {
                                 if (y >= Init.gameLength-6 && x == 5) isDone = true;
                                 x--;
                             }
+                            else {
+                                // System.out.println("to edge");
+                                if (map[y+2][8] == 1) break;
+                                else if (map[y+2][8] == 2) {
+                                    player.setScore(player.getScore() + Init.addScore);
+                                    map[y+2][x-1] = 0;
+                                } else if (map[y+2][8] == 3) {
+                                    Countdown.addTime(Init.addTime);
+                                    map[y+2][8] = 0;
+                                }
+                                player.MoveLeft();
+                                if (y >= Init.gameLength-6 && x == 5) isDone = true;
+                                x = 8;
+
+                            }
                         }
                         repaint();
                         break;
@@ -228,6 +250,19 @@ public class GamePanel extends JPanel {
                                 player.MoveRight();
                                 if (y >= Init.gameLength-6 && x == 3) isDone = true;
                                 x++;
+                            } else {
+                                // System.out.println("to edge");
+                                if (map[y+2][0] == 1) break;
+                                else if (map[y+2][0] == 2) {
+                                    player.setScore(player.getScore() + Init.addScore);
+                                    map[y+2][0] = 0;
+                                } else if (map[y+2][0] == 3) {
+                                    Countdown.addTime(Init.addTime);
+                                    map[y+2][0] = 0;
+                                }
+                                player.MoveRight();
+                                if (y >= Init.gameLength-6 && x == 3) isDone = true;
+                                x = 0;
                             }
                         }
                         repaint();
@@ -250,9 +285,9 @@ public class GamePanel extends JPanel {
     Thread vehicleRunner = new Thread(new Runnable() {
         @Override
         public void run() {
-            while(true) {
+            while(isRun) {
                 try {
-                    vehicleRunner.sleep(10);
+                    Thread.sleep(10);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }

@@ -9,44 +9,42 @@ package ktbkonno.winsanmwtv;
 import javax.swing.*;
 
 public class Init extends JFrame {
-
-    // to declare something
     static protected String gameVer = "dev-i"; // GAME VERSION
-    static protected final char devMode = 'c'; // c = canary (dev), b = beta (tested dev), p = preview (alpha), r = release;
-    static protected final int gameTime = 5; // game time (do -1 for debug)
+    static protected final char devMode = 'c'; // Game mode
+    static protected final int gameTime = 5; // Game time (use -1 for debug)
     static protected final boolean isDebug = true;
     static protected final int gameLength = 120;
     static protected final int addScore = 1;
     static protected final int deductScore = -1;
-    static protected final int addTime = 5; // second
+    static protected final int addTime = 5; // Additional time in seconds
     static protected final int carSpeed = 3;
     static protected final int trainSpeed = 10;
     static protected final int hsrSpeed = 15;
-    static protected final int score = 5; // default hp
+    static protected final int score = 5; // Default score
     static public boolean isThisRunning = true;
 
-    static JFrame display = new Init();
-    // static JFrame gameplay = new Gameplay();
+    static JFrame display = new Init();  // Launcher frame
+    static JFrame gameplay;  // Game frame
 
     Init() { // main constructor
         add(new Launcher());
         switch(devMode) {
             case 'c':
-                gameVer = gameVer+" (Canary Release, use with caution!)";
+                gameVer += " (Canary Release, use with caution!)";
                 break;
             case 'b':
-                gameVer = gameVer+" (Beta Release, if you find any bug please report!)";
+                gameVer += " (Beta Release, if you find any bug please report!)";
                 break;
             case 'p':
-                gameVer = gameVer+" (Release Preview)";
+                gameVer += " (Release Preview)";
                 break;
             default:
                 break;
         }
-        if (isDebug) gameVer = gameVer+" | Development Mode is turned ON";
+        if (isDebug) gameVer += " | Development Mode is turned ON";
     }
 
-    public static void main(String[] args) { // void main runner and init
+    public static void main(String[] args) { // main method and initialization
         display.setSize(850, 530);
         display.setTitle("Deadly Railways Launcher");
         display.setLocationRelativeTo(null);
@@ -55,32 +53,40 @@ public class Init extends JFrame {
     }
 
     static public void startGameInit() {
-        display.setSize(850, 530);
-        display.setTitle("Deadly Railways Launcher");
-        display.setLocationRelativeTo(null);
-        display.setVisible(false);
-        JFrame gameplay = new Gameplay();
+        display.setVisible(false);  // Hide the launcher frame
+
+        gameplay = new Gameplay();  // Initialize the gameplay frame
         gameplay.setSize(850, 530);
-        gameplay.setTitle("Deadly Railways - In Game (Game Version: "+gameVer+")");
+        gameplay.setTitle("Deadly Railways - In Game (Game Version: " + gameVer + ")");
         gameplay.setLocationRelativeTo(null);
         gameplay.setVisible(true);
+        gameplay.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Initialize game settings
         GamePanel.player.setX(4);
         GamePanel.player.setScore(Init.score);
         GamePanel.isDone = false;
         GamePanel.y = 0;
         GamePanel.x = 4;
         GamePanel.yLoc = GamePanel.player.getY(1);
-        gameplay.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Countdown.usedSecond = 0; Countdown.usedMin = 0;
+
+        Countdown.usedSecond = 0;
+        Countdown.usedMin = 0;
         Countdown countdown = new Countdown();
-        isThisRunning = false;
+
+        isThisRunning = false;  // Set to indicate game is running
     }
 
     static public void onGameEnd() {
         if (isThisRunning) return;
         isThisRunning = true;
+
+      gameplay.dispose();  // Close and dispose of the game frame
+
         Launcher.isRunning = false;
-        display.setVisible(true);
-        GamePanel.isDone = false;
+        display.setVisible(true);  // Show the launcher frame again
+        GamePanel.isDone = false;  // Reset game state if necessary
+        Countdown.playStatus = false;
+        GamePanel.isRun = false;
     }
 }

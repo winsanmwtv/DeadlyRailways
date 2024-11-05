@@ -77,7 +77,7 @@ public class Countdown {
                             usedMin++;
                         }
                     }
-                    System.out.println(minute+" "+second);
+                    // System.out.println(minute+" "+second);
 
                 }
             }

@@ -11,6 +11,8 @@ public class Launcher extends JPanel {
     private final URL bgURL = this.getClass().getResource("image/background.png");
     private final Image backgroundImage = new ImageIcon(bgURL).getImage();
 
+    public static boolean isRunning = false;
+
     ImageIcon startTitleIcon = new ImageIcon(this.getClass().getResource("image/drTitle.png"));
     JLabel startTitle = new JLabel(startTitleIcon);
 
@@ -46,14 +48,20 @@ public class Launcher extends JPanel {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                startButton.setIcon(startClick);
-                // System.out.println("User clicked start");
-                Init.startGameInit();
-                Countdown.minute = Init.gameTime;
-                Countdown.second = 0;
-                remove(startButton);
-                startButton.setIcon(startIcon);
-                GamePanel.init();
+                if (isRunning) {
+                    return;
+                }
+                isRunning = true;
+                    remove(startButton);
+                    //startButton.setIcon(startClick);
+                    // System.out.println("User clicked start");
+                    Init.startGameInit();
+                    Countdown.minute = Init.gameTime;
+                    Countdown.second = 0;
+                    //remove(startButton);
+                    // startButton.setIcon(startIcon);
+                    GamePanel.init();
+
             }
         });
 
