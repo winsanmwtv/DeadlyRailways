@@ -10,8 +10,13 @@ public class Countdown {
 
     public static boolean isNotHalt = false;
     static public boolean playStatus = false;
+
+    static public boolean isRunning = false;
     Countdown() {
-        //countdown.start();
+
+        second = 0;
+        minute = Init.gameTime;
+        countdown.start();
     }
 
     static void setHaltStatus(boolean halt) {
@@ -40,15 +45,15 @@ public class Countdown {
         return usedMin+":"+usedSecond;
     }
 
-    public static Thread countdown = new Thread(new Runnable() {
+    public Thread countdown = new Thread(new Runnable() {
         public void run() {
-            second = 0;
-            minute = Init.gameTime;
-
-            while(true){
-                // System.out.println(playStatus);
+            playStatus = true;
+            if (!isRunning){
+                while(playStatus){
+                    isRunning = true;
+                    // System.out.println(playStatus);
                     try {
-                        countdown.sleep(1000);
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
 
                     }
@@ -60,6 +65,7 @@ public class Countdown {
                         minute--;
                         // System.out.println("Timer: "+minute+":"+getSecond());
                     } else if (minute == 0 && second == 0) {
+                        // playStatus = false;
                         // break;
                         // System.out.println("TIME OUT");
                     }
@@ -71,8 +77,11 @@ public class Countdown {
                             usedMin++;
                         }
                     }
+                    System.out.println(minute+" "+second);
 
+                }
             }
+            playStatus = false;
         }
     });
 }

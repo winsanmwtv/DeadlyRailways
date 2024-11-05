@@ -23,9 +23,10 @@ public class Init extends JFrame {
     static protected final int trainSpeed = 10;
     static protected final int hsrSpeed = 15;
     static protected final int score = 5; // default hp
+    static public boolean isThisRunning = true;
 
     static JFrame display = new Init();
-    static JFrame gameplay = new Gameplay();
+    // static JFrame gameplay = new Gameplay();
 
     Init() { // main constructor
         add(new Launcher());
@@ -51,8 +52,6 @@ public class Init extends JFrame {
         display.setLocationRelativeTo(null);
         display.setVisible(true);
         display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gameplay.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Countdown.playStatus = false;
     }
 
     static public void startGameInit() {
@@ -60,6 +59,7 @@ public class Init extends JFrame {
         display.setTitle("Deadly Railways Launcher");
         display.setLocationRelativeTo(null);
         display.setVisible(false);
+        JFrame gameplay = new Gameplay();
         gameplay.setSize(850, 530);
         gameplay.setTitle("Deadly Railways - In Game (Game Version: "+gameVer+")");
         gameplay.setLocationRelativeTo(null);
@@ -70,20 +70,17 @@ public class Init extends JFrame {
         GamePanel.y = 0;
         GamePanel.x = 4;
         GamePanel.yLoc = GamePanel.player.getY(1);
+        gameplay.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Countdown.usedSecond = 0; Countdown.usedMin = 0;
-        Countdown.playStatus = true;
+        Countdown countdown = new Countdown();
+        isThisRunning = false;
     }
 
     static public void onGameEnd() {
-        display.setSize(850, 530);
-        display.setTitle("Deadly Railways Launcher - Replay");
-        display.setLocationRelativeTo(null);
+        if (isThisRunning) return;
+        isThisRunning = true;
+        Launcher.isRunning = false;
         display.setVisible(true);
-        gameplay.setSize(850, 530);
-        gameplay.setTitle("Deadly Railways - In Game (Game Version: "+gameVer+")");
-        gameplay.setLocationRelativeTo(null);
-        gameplay.setVisible(false);
         GamePanel.isDone = false;
-        Countdown.playStatus = false;
     }
 }
