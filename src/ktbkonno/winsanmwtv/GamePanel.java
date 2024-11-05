@@ -454,11 +454,11 @@ public class GamePanel extends JPanel {
                         zeroCount = 0;
                         for (int k = 0; k < 9; k++) {
                             // Adjust probabilities for coin (4), `1`, and default to `0`
-                            if (!coinPlaced && getRandomValue(new int[]{0, 1, 2, 3, 4}, new double[]{0.410, 0.28, 0.005, 0.005, 0.3}) == 4) {
+                            if (!coinPlaced && getRandomValue(new int[]{0, 1, 2, 3, 4}, new double[]{0.418, 0.28, 0.001, 0.001, 0.3}) == 4) {
                                 map[i][k] = 4; // Place a coin
                                 coinPlaced = true; // Mark that a coin has been placed
                             } else {
-                                map[i][k] = getRandomValue(new int[]{0, 1, 2, 3, 4}, new double[]{0.710, 0.28, 0.005, 0.005, 0.0}); // Place `0` or `1`
+                                map[i][k] = getRandomValue(new int[]{0, 1, 2, 3, 4}, new double[]{0.718, 0.28, 0.001, 0.001, 0.0}); // Place `0` or `1`
                             }
                             if (map[i][k] == 0) {
                                 zeroCount++;
