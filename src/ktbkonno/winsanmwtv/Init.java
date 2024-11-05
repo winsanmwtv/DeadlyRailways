@@ -9,7 +9,7 @@ package ktbkonno.winsanmwtv;
 import javax.swing.*;
 
 public class Init extends JFrame {
-    static protected String gameVer = "dev-i"; // GAME VERSION
+    static protected String gameVer = "dev-j"; // GAME VERSION
     static protected final char devMode = 'c'; // Game mode
     static protected final int gameTime = 5; // Game time (use -1 for debug)
     static protected final boolean isDebug = true;
