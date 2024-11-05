@@ -20,74 +20,38 @@ public class GamePanel extends JPanel {
 
     static public boolean isDone = false;
 
-    private final URL bgURL = this.getClass().getResource("image/background.png");
-    private final Image backgroundImage = new ImageIcon(bgURL).getImage();
+    private Image loadImage(String path) {
+        URL url = this.getClass().getResource(path);
+        return new ImageIcon(url).getImage();
+    }
 
-    private final URL winURL = this.getClass().getResource("image/win.png");
-    private final Image winImage = new ImageIcon(winURL).getImage();
-
-    private final URL outoftimeURL = this.getClass().getResource("image/out_of_time.png");
-    private final Image outoftime = new ImageIcon(outoftimeURL).getImage();
-
-    private final URL outofscoreURL = this.getClass().getResource("image/out_of_score.png");
-    private final Image outofscore = new ImageIcon(outofscoreURL).getImage();
-
-    private final URL userURL = this.getClass().getResource("image/user.png");
-    private final Image userImage = new ImageIcon(userURL).getImage();
-
-    private final URL platformURL = this.getClass().getResource("image/platform.png");
-    private final Image platformImage = new ImageIcon(platformURL).getImage();
-
-    private final URL roadURL = this.getClass().getResource("image/road.png");
-    private final Image roadImage = new ImageIcon(roadURL).getImage();
-
-    private final URL signalURL = this.getClass().getResource("image/signal.png");
-    private final Image signalImage = new ImageIcon(signalURL).getImage();
-
-    private final URL railURL = this.getClass().getResource("image/rail.png");
-    private final Image railImage = new ImageIcon(railURL).getImage();
-
-    private final URL hsrURL = this.getClass().getResource("image/railHSR.png");
-    private final Image hsrImage = new ImageIcon(hsrURL).getImage();
-
-    private final URL startPlatURL = this.getClass().getResource("image/startPlat.png");
-    private final Image startPlatImage = new ImageIcon(startPlatURL).getImage();
-
-    private final URL homeSweetHomeURL = this.getClass().getResource("image/home_sweet_home.png");
-    private final Image homeSweetHome = new ImageIcon(homeSweetHomeURL).getImage();
-
-    private final URL myHome = this.getClass().getResource("image/home.png");
-    private final Image home = new ImageIcon(myHome).getImage();
-
-    private final URL hpURL = this.getClass().getResource("image/hp.png");
-    private final Image hp = new ImageIcon(hpURL).getImage();
-
-    private final URL clockURL = this.getClass().getResource("image/clock.png");
-    private final Image clock = new ImageIcon(clockURL).getImage();
-
-    private final URL carLeftURL = this.getClass().getResource("image/car_left.png");
-    private final Image carLeft = new ImageIcon(carLeftURL).getImage();
-
-    private final URL carRightURL = this.getClass().getResource("image/car_right.png");
-    private final Image carRight = new ImageIcon(carRightURL).getImage();
-
-    private final URL trainLeftURL = this.getClass().getResource("image/train_left.png");
-    private final Image trainLeft = new ImageIcon(carLeftURL).getImage();
-
-    private final URL trainRightURL = this.getClass().getResource("image/train_right.png");
-    private final Image trainRight = new ImageIcon(carRightURL).getImage();
-
-    private final URL hsrLeftURL = this.getClass().getResource("image/bullet_left.png");
-    private final Image hsrLeft = new ImageIcon(carLeftURL).getImage();
-
-    private final URL hsrRightURL = this.getClass().getResource("image/bullet_right.png");
-    private final Image hsrRight = new ImageIcon(carRightURL).getImage();
-
-    private final URL roadClosedURL = this.getClass().getResource("image/roadClosed.png");
-    private final Image roadClosed = new ImageIcon(roadClosedURL).getImage();
-
-    private final URL coinURL = this.getClass().getResource("image/coin.png");
-    private final Image coinImage = new ImageIcon(coinURL).getImage();
+    // Load all images using the loadImage method
+    private final Image backgroundImage = loadImage("image/background.png");
+    private final Image winImage = loadImage("image/win.png");
+    private final Image outoftime = loadImage("image/out_of_time.png");
+    private final Image outofscore = loadImage("image/out_of_score.png");
+    private final Image userImage = loadImage("image/user.png");
+    private final Image platformImage = loadImage("image/platform.png");
+    private final Image roadImage = loadImage("image/road.png");
+    private final Image signalImage = loadImage("image/signal.png");
+    private final Image railImage = loadImage("image/rail.png");
+    private final Image hsrImage = loadImage("image/railHSR.png");
+    private final Image startPlatImage = loadImage("image/startPlat.png");
+    private final Image homeSweetHome = loadImage("image/home_sweet_home.png");
+    private final Image home = loadImage("image/home.png");
+    private final Image hp = loadImage("image/hp.png");
+    private final Image clock = loadImage("image/clock.png");
+    private final Image carLeft = loadImage("image/car_left.png");
+    private final Image carRight = loadImage("image/car_right.png");
+    private final Image trainLeft = loadImage("image/train_left.png");
+    private final Image trainRight = loadImage("image/train_right.png");
+    private final Image hsrLeft = loadImage("image/bullet_left.png");
+    private final Image hsrRight = loadImage("image/bullet_right.png");
+    private final Image roadClosed = loadImage("image/roadClosed.png");
+    private final Image railClosed = loadImage("image/railClosed.png");
+    private final Image hsrClosed = loadImage("image/hsrClosed.png");
+    private final Image coinImage = loadImage("image/coin.png");
+    private final Image hsrComing = loadImage("image/hsrComing.png");
 
     // vertical status: 0 = platform, 1 = road, 2 = rail, 3 = hsr_rail, 9 = endLoc, 8 = startLoc;
     // 4 = void; 5 = roadClosed;
@@ -340,13 +304,13 @@ public class GamePanel extends JPanel {
                                     vehicleLoc[j] = vehicleX[i][j];
                                     if ((y + 2) == i) {
                                         // Check for collision when moving up (W)
-                                        if (vehicleX[i][0] < player.getCurrentLocationX() + 45 && vehicleX[i][0] + 90 > player.getCurrentLocationX() - 5) {
+                                        if (vehicleX[i][0] < player.getCurrentLocationX() + 45 && vehicleX[i][0] + 45 > player.getCurrentLocationX() - 5) {
                                             mapVertical[i] = 5; // Set the map value indicating a collision
                                             player.deductScore();
                                             break; // Exit the loop since a collision was detected
                                         }
                                         // Check for collision when moving down (S)
-                                        else if (vehicleX[i][1] < player.getCurrentLocationX() + 45 && vehicleX[i][1] + 90 > player.getCurrentLocationX() - 5) {
+                                        else if (vehicleX[i][1] < player.getCurrentLocationX() + 45 && vehicleX[i][1] + 45 > player.getCurrentLocationX() - 5) {
                                             mapVertical[i] = 5; // Set the map value indicating a collision
                                             player.deductScore();
                                             break; // Exit the loop since a collision was detected
@@ -358,8 +322,63 @@ public class GamePanel extends JPanel {
                                 }
                                 break;
                             case 2:
+                                int[] trainLoc = new int[1];
+                                for (int j = 0; j < 1; j++) {
+                                    if (vehicleDirection[i] == 0) {
+                                        if (vehicleX[i][j] > -800.) vehicleX[i][j] -= Init.trainSpeed;
+                                        else vehicleX[i][j] = PlayerLocation.panelWidth+800;
+                                    }
+                                    else {
+                                        if (vehicleX[i][j] < PlayerLocation.panelWidth+800) vehicleX[i][j] += Init.trainSpeed;
+                                        else vehicleX[i][j] = -800;
+                                    }
+                                    trainLoc[j] = vehicleX[i][j];
+                                    if ((y + 2) == i) {
+                                        // Check for collision when moving up (W)
+                                        if (vehicleX[i][0] < player.getCurrentLocationX() + 45 && vehicleX[i][0] + 100 > player.getCurrentLocationX() - 5) {
+                                            mapVertical[i] = 6; // Set the map value indicating a collision
+                                            player.deductScore();
+                                            break; // Exit the loop since a collision was detected
+                                        }
+                                        // Check for collision when moving down (S)
+//                                        else if (vehicleX[i][1] < player.getCurrentLocationX() + 45 && vehicleX[i][1] + 100 > player.getCurrentLocationX() - 5) {
+//                                            mapVertical[i] = 6; // Set the map value indicating a collision
+//                                            player.deductScore();
+//                                            break; // Exit the loop since a collision was detected
+//                                        }
+                                    }
+                                }
                                 break;
                             case 3:
+                            case 10:
+                                int[] hsrLoc = new int[1];
+                                if (vehicleX[i][0] > -1000 && vehicleX[i][0] < PlayerLocation.panelWidth+1000) mapVertical[i] = 10;
+                                else mapVertical[i] = 3;
+                                for (int j = 0; j < 1; j++) {
+                                    if (vehicleDirection[i] == 0) {
+                                        if (vehicleX[i][j] > -4000) vehicleX[i][j] -= Init.hsrSpeed;
+                                        else vehicleX[i][j] = PlayerLocation.panelWidth+4000;
+                                    }
+                                    else {
+                                        if (vehicleX[i][j] < PlayerLocation.panelWidth+4000) vehicleX[i][j] += Init.hsrSpeed;
+                                        else vehicleX[i][j] = -4000;
+                                    }
+                                    hsrLoc[j] = vehicleX[i][j];
+                                    if ((y + 2) == i) {
+                                        // Check for collision when moving up (W)
+                                        if (vehicleX[i][0] < player.getCurrentLocationX() + 45 && vehicleX[i][0] + 150 > player.getCurrentLocationX() - 5) {
+                                            mapVertical[i] = 7; // Set the map value indicating a collision
+                                            player.deductScore();
+                                            break; // Exit the loop since a collision was detected
+                                        }
+                                        // Check for collision when moving down (S)
+//                                        else if (vehicleX[i][1] < player.getCurrentLocationX() + 45 && vehicleX[i][1] + 150 > player.getCurrentLocationX() - 5) {
+//                                            mapVertical[i] = 7; // Set the map value indicating a collision
+//                                            player.deductScore();
+//                                            break; // Exit the loop since a collision was detected
+//                                        }
+                                    }
+                                }
                                 break;
                         }
                     }
@@ -421,12 +440,20 @@ public class GamePanel extends JPanel {
             for (int j = 0; j < 9; j++) {
                 if (mapVertical[i] == 0) {
                     // Generate row ensuring minimum number of 0s for walkability
+                    boolean coinPlaced = false; // Track if a coin has been placed
+                    zeroCount = 0; // Reset zero count for this row
+
                     do {
                         zeroCount = 0;
-                        for (j = 0; j < 9; j++) {
-                            // Adjust probabilities for coin, `1`, and default to `0`
-                            map[i][j] = getRandomValue(new int[]{0, 1, 4}, new double[]{0.80, 0.17, 0.03});
-                            if (map[i][j] == 0) {
+                        for (int k = 0; k < 9; k++) {
+                            // Adjust probabilities for coin (4), `1`, and default to `0`
+                            if (!coinPlaced && getRandomValue(new int[]{0, 1, 2, 3, 4}, new double[]{0.410, 0.28, 0.005, 0.005, 0.3}) == 4) {
+                                map[i][k] = 4; // Place a coin
+                                coinPlaced = true; // Mark that a coin has been placed
+                            } else {
+                                map[i][k] = getRandomValue(new int[]{0, 1, 2, 3, 4}, new double[]{0.710, 0.28, 0.005, 0.005, 0.0}); // Place `0` or `1`
+                            }
+                            if (map[i][k] == 0) {
                                 zeroCount++;
                             }
                         }
@@ -438,7 +465,7 @@ public class GamePanel extends JPanel {
             }
         }
 
-        for (int i = Init.gameLength - 3; i < Init.gameLength; i++) mapVertical[i] = 7; // set void
+        for (int i = Init.gameLength - 3; i < Init.gameLength; i++) mapVertical[i] = 11; // set void
 
         for (int i = 0; i < Init.gameLength; i++) vehicleDirection[i] = (int) (Math.random() * (2 - 0)) + 0;
 
@@ -457,16 +484,18 @@ public class GamePanel extends JPanel {
                     }
                     break;
                 case 2:
-                    if (vehicleDirection[i] == 0) vehicleX[i][0] = (PlayerLocation.panelWidth + 200);
-                    else vehicleX[i][0] = -200;
+                    if (vehicleDirection[i] == 0) vehicleX[i][0] = (PlayerLocation.panelWidth + 400);
+                    else vehicleX[i][0] = -400;
                     break;
                 case 3:
-                    if (vehicleDirection[i] == 0) vehicleX[i][0] = (PlayerLocation.panelWidth + 300);
-                    else vehicleX[i][0] = -300;
+                case 10:
+                    if (vehicleDirection[i] == 0) vehicleX[i][0] = (PlayerLocation.panelWidth + 1200);
+                    else vehicleX[i][0] = -1200;
                     break;
             }
         }
     }
+
 
 
 
@@ -491,6 +520,7 @@ public class GamePanel extends JPanel {
         int ySize = getHeight();
         this.width = xSize;
         this.height = ySize;
+        PlayerLocation.panelWidth = getWidth();
         player.setWidth(getWidth());
         player.setHeight(getHeight());
         g.drawImage(backgroundImage, 0, 0, xSize, ySize, this);
@@ -526,15 +556,31 @@ public class GamePanel extends JPanel {
             }
             else if (mapVertical[y+i] == 2) {
                 g.drawImage(railImage, 0, player.getY(i), 2000, 70, this);
+                if (vehicleDirection[y+i] == 0) g.drawImage(trainLeft, vehicleX[y+i][0], player.getY(i), this);
+                else g.drawImage(trainRight, vehicleX[y+i][0], player.getY(i), this);
             }
             else if (mapVertical[y+i] == 3) {
                 g.drawImage(hsrImage, 0, player.getY(i), 2000, 70, this);
+                if (vehicleDirection[y+i] == 0) g.drawImage(hsrLeft, vehicleX[y+i][0], player.getY(i), this);
+                else g.drawImage(hsrRight, vehicleX[y+i][0], player.getY(i), this);
             }
             else if (mapVertical[y+i] == 5) {
                 g.drawImage(roadClosed, 0, player.getY(i), 2000, 70, this);
             }
+            else if (mapVertical[y+i] == 6) {
+                g.drawImage(railClosed, 0, player.getY(i), 2000, 70, this);
+            }
+            else if (mapVertical[y+i] == 7) {
+                g.drawImage(hsrClosed, 0, player.getY(i), 2000, 70, this);
+            }
             else if (mapVertical[y+i] == 8) {
                 g.drawImage(startPlatImage, 0, player.getY(i), 2000, 140, this);
+            }
+
+            else if (mapVertical[y+i] == 10) {
+                g.drawImage(hsrComing, 0, player.getY(i), 2000, 70, this);
+                if (vehicleDirection[y+i] == 0) g.drawImage(hsrLeft, vehicleX[y+i][0], player.getY(i), this);
+                else g.drawImage(hsrRight, vehicleX[y+i][0], player.getY(i), this);
             }
 
             // end game area
@@ -575,17 +621,31 @@ public class GamePanel extends JPanel {
             }
             else if (mapVertical[(y+1)+i] == 2) {
                 g.drawImage(railImage, 0, player.getY(i), 2000, 70, this);
+                if (vehicleDirection[(y+1)+i] == 0) g.drawImage(trainLeft, vehicleX[(y+1)+i][0], player.getY(i), this);
+                else g.drawImage(trainRight, vehicleX[(y+1)+i][0], player.getY(i), this);
             }
             else if (mapVertical[(y+1)+i] == 3) {
                 g.drawImage(hsrImage, 0, player.getY(i), 2000, 70, this);
+                if (vehicleDirection[(y+1)+i] == 0) g.drawImage(hsrLeft, vehicleX[(y+1)+i][0], player.getY(i), this);
+                else g.drawImage(hsrRight, vehicleX[(y+1)+i][0], player.getY(i), this);
             }
             else if (mapVertical[(y+1)+i] == 5) {
                 g.drawImage(roadClosed, 0, player.getY(i), 2000, 70, this);
             }
+            else if (mapVertical[(y+1)+i] == 6) {
+                g.drawImage(railClosed, 0, player.getY(i), 2000, 70, this);
+            }
+            else if (mapVertical[(y+1)+i] == 7) {
+                g.drawImage(hsrClosed, 0, player.getY(i), 2000, 70, this);
+            }
             else if (mapVertical[(y+1)+i] == 8) {
                 g.drawImage(startPlatImage, 0, player.getY(i), 2000, 140, this);
             }
-
+            else if (mapVertical[(y+1)+i] == 10) {
+                g.drawImage(hsrComing, 0, player.getY(i), 2000, 70, this);
+                if (vehicleDirection[(y+1)+i] == 0) g.drawImage(hsrLeft, vehicleX[(y+1)+i][0], player.getY(i), this);
+                else g.drawImage(hsrRight, vehicleX[(y+1)+i][0], player.getY(i), this);
+            }
         }}
 
         if (y == 0) yLoc = player.getY(1);
