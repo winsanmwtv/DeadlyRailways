@@ -154,7 +154,7 @@ public class GamePanel extends JPanel {
                         if (!isDone) {
                             // Countdown.playStatus = true;
                             if (y < Init.gameLength-6) y++;
-                            if (y >= Init.gameLength-6) isDone = true;
+                            if (y >= Init.gameLength-6 && x == 2) isDone = true;
                         }
                         repaint();
                         break;
@@ -182,7 +182,7 @@ public class GamePanel extends JPanel {
                                     map[y+2][x-1] = 0;
                                 }
                                 player.MoveLeft();
-                                if (y >= Init.gameLength-6) isDone = true;
+                                if (y >= Init.gameLength-6 && x == 3) isDone = true;
                                 x--;
                             }
                             else {
@@ -203,7 +203,7 @@ public class GamePanel extends JPanel {
                                     map[y+2][8] = 0;
                                 }
                                 player.MoveLeft();
-                                if (y >= Init.gameLength-6) isDone = true;
+                                if (y >= Init.gameLength-6 && x == 3) isDone = true;
                                 x = 8;
 
                             }
@@ -284,7 +284,7 @@ public class GamePanel extends JPanel {
                                     map[y+2][x+1] = 0;
                                 }
                                 player.MoveRight();
-                                if (y >= Init.gameLength-6) isDone = true;
+                                if (y >= Init.gameLength-6 && x == 1) isDone = true;
                                 x++;
                             } else {
                                 // System.out.println("to edge");
@@ -304,7 +304,7 @@ public class GamePanel extends JPanel {
                                     map[y+2][0] = 0;
                                 }
                                 player.MoveRight();
-                                if (y >= Init.gameLength-6) isDone = true;
+                                if (y >= Init.gameLength-6 && x == 1) isDone = true;
                                 x = 0;
                             }
                         }
@@ -758,7 +758,7 @@ public class GamePanel extends JPanel {
 
         // Draw user image as a circle
         int userImageX = player.getCurrentLocationX();
-        int userImageY = yLoc+10;
+        int userImageY = yLoc+7;
         int imageWidth = 54;
         int imageHeight = 54;
 

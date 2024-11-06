@@ -9,8 +9,8 @@ package ktbkonno.winsanmwtv;
 import javax.swing.*;
 
 public class Init extends JFrame {
-    static protected String gameVer = "beta-3"; // GAME VERSION
-    static protected final char devMode = 'b'; // Game mode
+    static protected String gameVer = "3.2 (division M)"; // GAME VERSION
+    static protected final char devMode = 'r'; // Game mode
     static protected int gameTime = 5; // Game time (use -1 for debug)
     static protected final boolean isDebug = false;
     static protected int gameLength = 150+6;
@@ -18,7 +18,7 @@ public class Init extends JFrame {
     static protected final int deductScore = -1; //HP
     static protected final int addTime = 10; // Additional time in seconds
     static protected final int carSpeed = 4;
-    static protected final int trainSpeed = 8;
+    static protected final int trainSpeed = 7;
     static protected final int hsrSpeed = 19;
     static protected int score = 3; // Default HP
     static protected final int mapEdge = 2000+6; // max map load
