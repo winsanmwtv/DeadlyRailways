@@ -9,10 +9,10 @@ package ktbkonno.winsanmwtv;
 import javax.swing.*;
 
 public class Init extends JFrame {
-    static protected String gameVer = "dev-m"; // GAME VERSION
-    static protected final char devMode = 'c'; // Game mode
+    static protected String gameVer = "beta-3"; // GAME VERSION
+    static protected final char devMode = 'b'; // Game mode
     static protected int gameTime = 5; // Game time (use -1 for debug)
-    static protected final boolean isDebug = true;
+    static protected final boolean isDebug = false;
     static protected int gameLength = 150+6;
     static protected final int addScore = 1; //HP
     static protected final int deductScore = -1; //HP
@@ -51,12 +51,15 @@ public class Init extends JFrame {
         display.setLocationRelativeTo(null);
         display.setVisible(true);
         display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        display.setResizable(false);
     }
 
     static public void startGameInit() {
         display.setVisible(false);  // Hide the launcher frame
 
+
         gameplay = new Gameplay();  // Initialize the gameplay frame
+        gameplay.setResizable(false);
         gameplay.setSize(850, 530);
         gameplay.setTitle("Deadly Railways - In Game (Game Version: " + gameVer + ")");
         gameplay.setLocationRelativeTo(null);

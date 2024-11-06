@@ -736,16 +736,20 @@ public class GamePanel extends JPanel {
         }
 
         if (y == 0) yLoc = player.getY(1);
-        Font font = new Font("Arial", Font.PLAIN, 14);
+        Font font = new Font("Arial", Font.PLAIN, 18);
         g.setFont(font);
 
-        g.drawString("Time left: " + Countdown.getMinute() + ":" + Countdown.getSecond(), 15, 15);
-        g.drawString("Total steps so far: "+y+" steps, Coin: "+coin, 15, 30);
+        g.drawString("Time left: " + Countdown.getMinute() + ":" + Countdown.getSecond(), 15, 20);
+        g.drawString("Total steps so far: "+y+" steps, Coin: "+coin, 15, 40);
+        Font font2 = new Font("Arial", Font.PLAIN, 14);
+        g.setFont(font2);
         if (Init.isDebug) {
-            g.drawString("X: "+x+" Y: "+y, 15, 45);
-            g.drawString("Game Version: "+ Init.gameVer, 15, getHeight()-15);
-        }
 
+
+            g.drawString("X: "+x+" Y: "+y, 15, getHeight()-30);
+
+        }
+        g.drawString("Game Version: "+ Init.gameVer, 15, getHeight()-15);
         g.fillOval(player.getCurrentLocationX()-2, yLoc+8, 54, 54);
 
         // Draw user image as a circle

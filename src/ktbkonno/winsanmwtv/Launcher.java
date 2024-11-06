@@ -25,8 +25,8 @@ public class Launcher extends JPanel {
 
     private JButton startButton = new JButton(startIcon);
     private JButton exitButton = new JButton(exitIcon);
-    private JButton hardButton = new JButton("Hardcore Mode");
-    private JButton endlessButton = new JButton("Endless Mode");
+    private JButton hardButton = new JButton(new ImageIcon(this.getClass().getResource("image/hardcore.png")));
+    private JButton endlessButton = new JButton(new ImageIcon(this.getClass().getResource("image/endless.png")));
 
     Launcher() {
         repaint();
@@ -39,7 +39,7 @@ public class Launcher extends JPanel {
         int ySize = getHeight();
         g.drawImage(backgroundImage, 0, 0, xSize, ySize, this);
 
-        startTitle.setBounds((getWidth() - 550) / 2, 20, 550, 120);
+        startTitle.setBounds(((getWidth()/2) - (800/2)) , 0, 800, 250);
         add(startTitle);
 
         Font font = new Font("Arial", Font.PLAIN, 14);
@@ -48,11 +48,17 @@ public class Launcher extends JPanel {
         g.setColor(Color.WHITE);
         g.drawString("Game Version: "+ Init.gameVer, 15, getHeight()-15);
 
+
+        // startButton, exitButton, endlessButton, hardButton
         startButton.setBounds(((getWidth()/2)-100)-120, (getHeight() / 2), 200, 70);
-        add(startButton);
+        hardButton.setBounds(((getWidth()/2) -100)+120, (getHeight() / 2), 200, 70);
         endlessButton.setBounds(((getWidth()/2)-100)-120, (getHeight() / 2)+75, 200, 70);
+        exitButton.setBounds(((getWidth()/2) -100)+120, (getHeight() / 2)+75, 200, 70);
+        add(exitButton);
+        add(startButton);
+
         add(endlessButton);
-        hardButton.setBounds(((getWidth()/2) -100)+120, (getHeight() / 2)+75, 200, 70);
+
         add(hardButton);
         startButton.addActionListener(new ActionListener() {
             @Override
@@ -123,9 +129,6 @@ public class Launcher extends JPanel {
 
             }
         });
-
-        exitButton.setBounds(((getWidth()/2) -100)+120, (getHeight() / 2), 200, 70);
-        add(exitButton);
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
