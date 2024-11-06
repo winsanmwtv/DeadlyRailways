@@ -9,10 +9,10 @@ package ktbkonno.winsanmwtv;
 import javax.swing.*;
 
 public class Init extends JFrame {
-    static protected String gameVer = "3.2 (division M)"; // GAME VERSION
-    static protected final char devMode = 'r'; // Game mode
+    static protected String gameVer = "for report writing only"; // GAME VERSION
+    static protected final char devMode = 'c'; // Game mode
     static protected int gameTime = 5; // Game time (use -1 for debug)
-    static protected final boolean isDebug = false;
+    static protected final boolean isDebug = true;
     static protected int gameLength = 150 + 6;
     static protected final int addScore = 1; //HP
     static protected final int deductScore = -1; //HP

@@ -12,7 +12,7 @@ public class PlayerLocation {
     private int score = Init.score;
 
     PlayerLocation() {
-        /**/
+
     }
 
     public void setWidth(int panelWidth) {
