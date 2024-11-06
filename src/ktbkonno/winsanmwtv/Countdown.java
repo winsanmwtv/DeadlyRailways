@@ -14,6 +14,7 @@ public class Countdown {
     public static boolean isNotStart = false;
 
     static public boolean isRunning = false;
+
     Countdown() {
 
         second = 0;
@@ -44,8 +45,8 @@ public class Countdown {
     }
 
     static String getSecond() {
-        if (second < 10) return "0"+second;
-        return ""+second;
+        if (second < 10) return "0" + second;
+        return "" + second;
     }
 
     static int getMinute() {
@@ -53,23 +54,23 @@ public class Countdown {
     }
 
     static public void addTime(int time) {
-        if (second+time < 60) second+=time;
+        if (second + time < 60) second += time;
         else {
             minute++;
-            second = (second+time)-60;
+            second = (second + time) - 60;
         }
     }
 
     static public String getTotalTime() {
-        if (usedSecond < 10) return usedMin+":0"+usedSecond;
-        return usedMin+":"+usedSecond;
+        if (usedSecond < 10) return usedMin + ":0" + usedSecond;
+        return usedMin + ":" + usedSecond;
     }
 
     public Thread countdown = new Thread(new Runnable() {
         public void run() {
             playStatus = true;
-            if (true){
-                while(true){
+            if (true) {
+                while (true) {
                     isRunning = true;
                     // System.out.println(playStatus);
                     try {

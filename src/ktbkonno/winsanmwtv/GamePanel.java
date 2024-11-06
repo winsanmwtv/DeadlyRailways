@@ -94,10 +94,10 @@ public class GamePanel extends JPanel {
         coin = 0;
 
 
-
         KeyListener listener = new KeyListener() {
             @Override
-            public void keyTyped(KeyEvent e) {}
+            public void keyTyped(KeyEvent e) {
+            }
 
             @Override
             public void keyPressed(KeyEvent e) {
@@ -112,49 +112,47 @@ public class GamePanel extends JPanel {
                         if (isDead) break;
                         if (y == 0) {
                             // Countdown.playStatus = true;
-                            if (map[y+3][x] == 1) break;
-                            else if (map[y+3][x] == 2) {
+                            if (map[y + 3][x] == 1) break;
+                            else if (map[y + 3][x] == 2) {
                                 player.setScore(player.getScore() + Init.addScore);
-                                map[y+3][x] = 0;
-                            } else if (map[y+3][x] == 3) {
+                                map[y + 3][x] = 0;
+                            } else if (map[y + 3][x] == 3) {
                                 Countdown.addTime(Init.addTime);
-                                map[y+3][x] = 0;
-                            } else if (map[y+3][x] == 4) {
+                                map[y + 3][x] = 0;
+                            } else if (map[y + 3][x] == 4) {
                                 coin++;
-                                map[y+3][x] = 0;
-                            }
-                            else if (map[y+3][x] == 5) {
-                                Countdown.deductTime(Init.addTime*3);
-                                map[y+3][x] = 0;
+                                map[y + 3][x] = 0;
+                            } else if (map[y + 3][x] == 5) {
+                                Countdown.deductTime(Init.addTime * 3);
+                                map[y + 3][x] = 0;
                             }
                             yLoc = player.getY(2);
                             repaint();
                             y++;
                             break;
                         }
-                        if (map[y+3][x] == 1) break;
-                        else if (map[y+3][x] == 2) {
+                        if (map[y + 3][x] == 1) break;
+                        else if (map[y + 3][x] == 2) {
                             // Countdown.playStatus = true;
                             player.setScore(player.getScore() + Init.addScore);
-                            map[y+3][x] = 0;
-                        } else if (map[y+3][x] == 3) {
+                            map[y + 3][x] = 0;
+                        } else if (map[y + 3][x] == 3) {
                             // Countdown.playStatus = true;
                             Countdown.addTime(Init.addTime);
-                            map[y+3][x] = 0;
-                        } else if (map[y+3][x] == 4) {
+                            map[y + 3][x] = 0;
+                        } else if (map[y + 3][x] == 4) {
                             // Countdown.playStatus = true;
                             coin++;
-                            map[y+3][x] = 0;
-                        }
-                        else if (map[y+3][x] == 5) {
+                            map[y + 3][x] = 0;
+                        } else if (map[y + 3][x] == 5) {
                             // Countdown.playStatus = true;
-                            Countdown.deductTime(Init.addTime*3);
-                            map[y+3][x] = 0;
+                            Countdown.deductTime(Init.addTime * 3);
+                            map[y + 3][x] = 0;
                         }
                         if (!isDone) {
                             // Countdown.playStatus = true;
-                            if (y < Init.gameLength-6) y++;
-                            if (y >= Init.gameLength-6 && x == 2) isDone = true;
+                            if (y < Init.gameLength - 6) y++;
+                            if (y >= Init.gameLength - 6 && x == 2) isDone = true;
                         }
                         repaint();
                         break;
@@ -165,45 +163,41 @@ public class GamePanel extends JPanel {
                         if (!isDone) {
                             // Countdown.playStatus = true;
                             if (x > 0) {
-                                if (map[y+2][x-1] == 1) break;
-                                else if (map[y+2][x-1] == 2) {
+                                if (map[y + 2][x - 1] == 1) break;
+                                else if (map[y + 2][x - 1] == 2) {
                                     player.setScore(player.getScore() + Init.addScore);
-                                    map[y+2][x-1] = 0;
-                                } else if (map[y+2][x-1] == 3) {
+                                    map[y + 2][x - 1] = 0;
+                                } else if (map[y + 2][x - 1] == 3) {
                                     Countdown.addTime(Init.addTime);
-                                    map[y+2][x-1] = 0;
-                                }
-                                else if (map[y+2][x-1] == 4) {
+                                    map[y + 2][x - 1] = 0;
+                                } else if (map[y + 2][x - 1] == 4) {
                                     coin++;
-                                    map[y+2][x-1] = 0;
-                                }
-                                else if (map[y+2][x-1] == 5) {
-                                    Countdown.deductTime(Init.addTime*3);
-                                    map[y+2][x-1] = 0;
+                                    map[y + 2][x - 1] = 0;
+                                } else if (map[y + 2][x - 1] == 5) {
+                                    Countdown.deductTime(Init.addTime * 3);
+                                    map[y + 2][x - 1] = 0;
                                 }
                                 player.MoveLeft();
-                                if (y >= Init.gameLength-6 && x == 3) isDone = true;
+                                if (y >= Init.gameLength - 6 && x == 3) isDone = true;
                                 x--;
-                            }
-                            else {
+                            } else {
                                 // System.out.println("to edge");
-                                if (map[y+2][8] == 1) break;
-                                else if (map[y+2][8] == 2) {
+                                if (map[y + 2][8] == 1) break;
+                                else if (map[y + 2][8] == 2) {
                                     player.setScore(player.getScore() + Init.addScore);
-                                    map[y+2][x-1] = 0;
-                                } else if (map[y+2][8] == 3) {
+                                    map[y + 2][x - 1] = 0;
+                                } else if (map[y + 2][8] == 3) {
                                     Countdown.addTime(Init.addTime);
-                                    map[y+2][8] = 0;
-                                } else if (map[y+2][8] == 4) {
+                                    map[y + 2][8] = 0;
+                                } else if (map[y + 2][8] == 4) {
                                     coin++;
-                                    map[y+2][8] = 0;
-                                }
-                                else if (map[y+2][8] == 5) {
-                                    Countdown.deductTime(Init.addTime*3);
-                                    map[y+2][8] = 0;
+                                    map[y + 2][8] = 0;
+                                } else if (map[y + 2][8] == 5) {
+                                    Countdown.deductTime(Init.addTime * 3);
+                                    map[y + 2][8] = 0;
                                 }
                                 player.MoveLeft();
-                                if (y >= Init.gameLength-6 && x == 3) isDone = true;
+                                if (y >= Init.gameLength - 6 && x == 3) isDone = true;
                                 x = 8;
 
                             }
@@ -227,9 +221,8 @@ public class GamePanel extends JPanel {
                             } else if (map[y][x] == 4) {
                                 coin++;
                                 map[y][x] = 0;
-                            }
-                            else if (map[y][x] == 5) {
-                                Countdown.deductTime(Init.addTime*3);
+                            } else if (map[y][x] == 5) {
+                                Countdown.deductTime(Init.addTime * 3);
                                 map[y][x] = 0;
                             }
                             yLoc = player.getY(1);
@@ -237,24 +230,23 @@ public class GamePanel extends JPanel {
                             y--;
                             break;
                         }
-                        if (map[y+1][x] == 1) break;
-                        else if (map[y+1][x] == 2) {
+                        if (map[y + 1][x] == 1) break;
+                        else if (map[y + 1][x] == 2) {
                             // Countdown.playStatus = true;
                             player.setScore(player.getScore() + Init.addScore);
-                            map[y+1][x] = 0;
-                        } else if (map[y+1][x] == 3) {
+                            map[y + 1][x] = 0;
+                        } else if (map[y + 1][x] == 3) {
                             // Countdown.playStatus = true;
                             Countdown.addTime(Init.addTime);
-                            map[y+1][x] = 0;
-                        } else if (map[y+1][x] == 4) {
+                            map[y + 1][x] = 0;
+                        } else if (map[y + 1][x] == 4) {
                             // Countdown.playStatus = true;
                             coin++;
-                            map[y+1][x] = 0;
-                        }
-                        else if (map[y+1][x] == 5) {
+                            map[y + 1][x] = 0;
+                        } else if (map[y + 1][x] == 5) {
                             // Countdown.playStatus = true;
-                            Countdown.deductTime(Init.addTime*3);
-                            map[y+1][x] = 0;
+                            Countdown.deductTime(Init.addTime * 3);
+                            map[y + 1][x] = 0;
                         }
                         if (!isDone) {
                             if (y > 0) y--;
@@ -268,43 +260,41 @@ public class GamePanel extends JPanel {
                         if (!isDone) {
                             //Countdown.playStatus = true;
                             if (x < 8) {
-                                if (map[y+2][x+1] == 1) break;
-                                else if (map[y+2][x+1] == 2) {
+                                if (map[y + 2][x + 1] == 1) break;
+                                else if (map[y + 2][x + 1] == 2) {
                                     player.setScore(player.getScore() + Init.addScore);
-                                    map[y+2][x+1] = 0;
-                                } else if (map[y+2][x+1] == 3) {
+                                    map[y + 2][x + 1] = 0;
+                                } else if (map[y + 2][x + 1] == 3) {
                                     Countdown.addTime(Init.addTime);
-                                    map[y+2][x+1] = 0;
-                                } else if (map[y+2][x+1] == 4) {
+                                    map[y + 2][x + 1] = 0;
+                                } else if (map[y + 2][x + 1] == 4) {
                                     coin++;
-                                    map[y+2][x+1] = 0;
-                                }
-                                else if (map[y+2][x+1] == 5) {
-                                    Countdown.deductTime(Init.addTime*3);
-                                    map[y+2][x+1] = 0;
+                                    map[y + 2][x + 1] = 0;
+                                } else if (map[y + 2][x + 1] == 5) {
+                                    Countdown.deductTime(Init.addTime * 3);
+                                    map[y + 2][x + 1] = 0;
                                 }
                                 player.MoveRight();
-                                if (y >= Init.gameLength-6 && x == 1) isDone = true;
+                                if (y >= Init.gameLength - 6 && x == 1) isDone = true;
                                 x++;
                             } else {
                                 // System.out.println("to edge");
-                                if (map[y+2][0] == 1) break;
-                                else if (map[y+2][0] == 2) {
+                                if (map[y + 2][0] == 1) break;
+                                else if (map[y + 2][0] == 2) {
                                     player.setScore(player.getScore() + Init.addScore);
-                                    map[y+2][0] = 0;
-                                } else if (map[y+2][0] == 3) {
+                                    map[y + 2][0] = 0;
+                                } else if (map[y + 2][0] == 3) {
                                     Countdown.addTime(Init.addTime);
-                                    map[y+2][0] = 0;
-                                } else if (map[y+2][0] == 4) {
+                                    map[y + 2][0] = 0;
+                                } else if (map[y + 2][0] == 4) {
                                     coin++;
-                                    map[y+2][0] = 0;
-                                }
-                                else if (map[y+2][0] == 5) {
-                                    Countdown.deductTime(Init.addTime*3);
-                                    map[y+2][0] = 0;
+                                    map[y + 2][0] = 0;
+                                } else if (map[y + 2][0] == 5) {
+                                    Countdown.deductTime(Init.addTime * 3);
+                                    map[y + 2][0] = 0;
                                 }
                                 player.MoveRight();
-                                if (y >= Init.gameLength-6 && x == 1) isDone = true;
+                                if (y >= Init.gameLength - 6 && x == 1) isDone = true;
                                 x = 0;
                             }
                         }
@@ -316,7 +306,8 @@ public class GamePanel extends JPanel {
             }
 
             @Override
-            public void keyReleased(KeyEvent e) {}
+            public void keyReleased(KeyEvent e) {
+            }
         };
 
         addKeyListener(listener);
@@ -328,7 +319,7 @@ public class GamePanel extends JPanel {
     Thread vehicleRunner = new Thread(new Runnable() {
         @Override
         public void run() {
-            while(isRun) {
+            while (isRun) {
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
@@ -336,16 +327,16 @@ public class GamePanel extends JPanel {
                 }
                 for (int i = 0; i < Init.gameLength; i++) {
                     if (mapVertical[i] != 0) {
-                        switch(mapVertical[i]) {
+                        switch (mapVertical[i]) {
                             case 1:
                                 int[] vehicleLoc = new int[2];
                                 for (int j = 0; j < 2; j++) {
                                     if (vehicleDirection[i] == 0) {
                                         if (vehicleX[i][j] > -100) vehicleX[i][j] -= Init.carSpeed;
-                                        else vehicleX[i][j] = PlayerLocation.panelWidth+100;
-                                    }
-                                    else {
-                                        if (vehicleX[i][j] < PlayerLocation.panelWidth+100) vehicleX[i][j] += Init.carSpeed;
+                                        else vehicleX[i][j] = PlayerLocation.panelWidth + 100;
+                                    } else {
+                                        if (vehicleX[i][j] < PlayerLocation.panelWidth + 100)
+                                            vehicleX[i][j] += Init.carSpeed;
                                         else vehicleX[i][j] = -100;
                                     }
                                     vehicleLoc[j] = vehicleX[i][j];
@@ -365,7 +356,6 @@ public class GamePanel extends JPanel {
                                     }
 
 
-
                                 }
                                 break;
                             case 2:
@@ -373,10 +363,10 @@ public class GamePanel extends JPanel {
                                 for (int j = 0; j < 1; j++) {
                                     if (vehicleDirection[i] == 0) {
                                         if (vehicleX[i][j] > -800.) vehicleX[i][j] -= Init.trainSpeed;
-                                        else vehicleX[i][j] = PlayerLocation.panelWidth+800;
-                                    }
-                                    else {
-                                        if (vehicleX[i][j] < PlayerLocation.panelWidth+800) vehicleX[i][j] += Init.trainSpeed;
+                                        else vehicleX[i][j] = PlayerLocation.panelWidth + 800;
+                                    } else {
+                                        if (vehicleX[i][j] < PlayerLocation.panelWidth + 800)
+                                            vehicleX[i][j] += Init.trainSpeed;
                                         else vehicleX[i][j] = -800;
                                     }
                                     trainLoc[j] = vehicleX[i][j];
@@ -399,15 +389,16 @@ public class GamePanel extends JPanel {
                             case 3:
                             case 10:
                                 int[] hsrLoc = new int[1];
-                                if (vehicleX[i][0] > -1000 && vehicleX[i][0] < PlayerLocation.panelWidth+1000) mapVertical[i] = 10;
+                                if (vehicleX[i][0] > -1000 && vehicleX[i][0] < PlayerLocation.panelWidth + 1000)
+                                    mapVertical[i] = 10;
                                 else mapVertical[i] = 3;
                                 for (int j = 0; j < 1; j++) {
                                     if (vehicleDirection[i] == 0) {
                                         if (vehicleX[i][j] > -4000) vehicleX[i][j] -= Init.hsrSpeed;
-                                        else vehicleX[i][j] = PlayerLocation.panelWidth+4000;
-                                    }
-                                    else {
-                                        if (vehicleX[i][j] < PlayerLocation.panelWidth+4000) vehicleX[i][j] += Init.hsrSpeed;
+                                        else vehicleX[i][j] = PlayerLocation.panelWidth + 4000;
+                                    } else {
+                                        if (vehicleX[i][j] < PlayerLocation.panelWidth + 4000)
+                                            vehicleX[i][j] += Init.hsrSpeed;
                                         else vehicleX[i][j] = -4000;
                                     }
                                     hsrLoc[j] = vehicleX[i][j];
@@ -453,7 +444,6 @@ public class GamePanel extends JPanel {
         mapVertical[Init.gameLength - 4] = 9;
         int minWalkableZeros = 5;      // Minimum number of 0's required in each row for walkability
         int maxSequenceLength = 3;     // Maximum allowed length of consecutive non-0 values in mapVertical
-
 
 
         // Track the count of consecutive non-zero values (1, 2, or 3)
@@ -510,13 +500,10 @@ public class GamePanel extends JPanel {
                             if (!coinPlaced && getRandomValue(new int[]{0, 1, 2, 3, 4, 5}, new double[]{0.511, 0.28, 0.001, 0.001, 0.2, 0.007}) == 4) {
                                 map[i][k] = 4; // Place a coin
                                 coinPlaced = true; // Mark that a coin has been placed
-                            }
-                            else if (!policePlaced && getRandomValue(new int[]{0, 1, 2, 3, 4, 5}, new double[]{0.511, 0.28, 0.001, 0.001, 0.2, 0.007}) == 5){
+                            } else if (!policePlaced && getRandomValue(new int[]{0, 1, 2, 3, 4, 5}, new double[]{0.511, 0.28, 0.001, 0.001, 0.2, 0.007}) == 5) {
                                 map[i][k] = 5; // Place a coin
                                 policePlaced = true; // Mark that a coin has been placed
-                            }
-
-                            else {
+                            } else {
                                 map[i][k] = getRandomValue(new int[]{0, 1, 2, 3}, new double[]{0.818, 0.18, 0.001, 0.001}); // Place `0` or `1`
                             }
                             if (map[i][k] == 0) {
@@ -563,8 +550,6 @@ public class GamePanel extends JPanel {
     }
 
 
-
-
     // Helper method to generate random values based on specified probabilities
     private static int getRandomValue(int[] values, double[] probabilities) {
         double random = Math.random();
@@ -594,145 +579,125 @@ public class GamePanel extends JPanel {
 
 
         // do get Y
-        if (y >= 1) {for (int i = 1; i <= 5; i++) {
-            //System.out.println(mapVertical[y+i]);
+        if (y >= 1) {
+            for (int i = 1; i <= 5; i++) {
+                //System.out.println(mapVertical[y+i]);
 
-            if (mapVertical[y+i] == 0) {
-                g.drawImage(platformImage, 0, player.getY(i), 2000, 70, this);
-                for (int j = 0; j < 9; j++) {
-                    if (map[y+i][j] == 1) {
-                        g.drawImage(signalImage, player.getActualX(j), player.getY(i) + 10, this);
+                if (mapVertical[y + i] == 0) {
+                    g.drawImage(platformImage, 0, player.getY(i), 2000, 70, this);
+                    for (int j = 0; j < 9; j++) {
+                        if (map[y + i][j] == 1) {
+                            g.drawImage(signalImage, player.getActualX(j), player.getY(i) + 10, this);
+                        } else if (map[y + i][j] == 2) {
+                            g.drawImage(hp, player.getActualX(j), player.getY(i) + 10, this);
+                        } else if (map[y + i][j] == 3) {
+                            g.drawImage(clock, player.getActualX(j), player.getY(i) + 10, this);
+                        } else if (map[y + i][j] == 4) {
+                            g.drawImage(coinImage, player.getActualX(j), player.getY(i) + 10, this);
+                        } else if (map[y + i][j] == 5) {
+                            g.drawImage(police, player.getActualX(j), player.getY(i) + 10, this);
+                        }
                     }
-                    else if (map[y+i][j] == 2) {
-                        g.drawImage(hp, player.getActualX(j), player.getY(i)+10, this);
+                } else if (mapVertical[y + i] == 1) {
+                    g.drawImage(roadImage, 0, player.getY(i), 2000, 70, this);
+                    for (int j = 0; j < 2; j++) {
+                        if (vehicleDirection[y + i] == 0)
+                            g.drawImage(carLeft, vehicleX[y + i][j], player.getY(i), this);
+                        else g.drawImage(carRight, vehicleX[y + i][j], player.getY(i), this);
                     }
-                    else if (map[y+i][j] == 3) {
-                        g.drawImage(clock, player.getActualX(j), player.getY(i)+10, this);
-                    }
-                    else if (map[y+i][j] == 4) {
-                        g.drawImage(coinImage, player.getActualX(j), player.getY(i)+10, this);
-                    }
-                    else if (map[y+i][j] == 5) {
-                        g.drawImage(police, player.getActualX(j), player.getY(i)+10, this);
-                    }
+                } else if (mapVertical[y + i] == 2) {
+                    g.drawImage(railImage, 0, player.getY(i), 2000, 70, this);
+                    if (vehicleDirection[y + i] == 0) g.drawImage(trainLeft, vehicleX[y + i][0], player.getY(i), this);
+                    else g.drawImage(trainRight, vehicleX[y + i][0], player.getY(i), this);
+                } else if (mapVertical[y + i] == 3) {
+                    g.drawImage(hsrImage, 0, player.getY(i), 2000, 70, this);
+                    if (vehicleDirection[y + i] == 0) g.drawImage(hsrLeft, vehicleX[y + i][0], player.getY(i), this);
+                    else g.drawImage(hsrRight, vehicleX[y + i][0], player.getY(i), this);
+                } else if (mapVertical[y + i] == 5) {
+                    g.drawImage(roadClosed, 0, player.getY(i), 2000, 70, this);
+                } else if (mapVertical[y + i] == 6) {
+                    g.drawImage(railClosed, 0, player.getY(i), 2000, 70, this);
+                } else if (mapVertical[y + i] == 7) {
+                    g.drawImage(hsrClosed, 0, player.getY(i), 2000, 70, this);
+                } else if (mapVertical[y + i] == 8) {
+                    g.drawImage(startPlatImage, 0, player.getY(i), 2000, 140, this);
+                } else if (mapVertical[y + i] == 10) {
+                    g.drawImage(hsrComing, 0, player.getY(i), 2000, 70, this);
+                    if (vehicleDirection[y + i] == 0) g.drawImage(hsrLeft, vehicleX[y + i][0], player.getY(i), this);
+                    else g.drawImage(hsrRight, vehicleX[y + i][0], player.getY(i), this);
                 }
-            }
-            else if (mapVertical[y+i] == 1) {
-                g.drawImage(roadImage, 0, player.getY(i), 2000, 70, this);
-                for (int j = 0; j < 2; j++) {
-                    if (vehicleDirection[y+i] == 0) g.drawImage(carLeft, vehicleX[y+i][j], player.getY(i), this);
-                    else g.drawImage(carRight, vehicleX[y+i][j], player.getY(i), this);
-                }
-            }
-            else if (mapVertical[y+i] == 2) {
-                g.drawImage(railImage, 0, player.getY(i), 2000, 70, this);
-                if (vehicleDirection[y+i] == 0) g.drawImage(trainLeft, vehicleX[y+i][0], player.getY(i), this);
-                else g.drawImage(trainRight, vehicleX[y+i][0], player.getY(i), this);
-            }
-            else if (mapVertical[y+i] == 3) {
-                g.drawImage(hsrImage, 0, player.getY(i), 2000, 70, this);
-                if (vehicleDirection[y+i] == 0) g.drawImage(hsrLeft, vehicleX[y+i][0], player.getY(i), this);
-                else g.drawImage(hsrRight, vehicleX[y+i][0], player.getY(i), this);
-            }
-            else if (mapVertical[y+i] == 5) {
-                g.drawImage(roadClosed, 0, player.getY(i), 2000, 70, this);
-            }
-            else if (mapVertical[y+i] == 6) {
-                g.drawImage(railClosed, 0, player.getY(i), 2000, 70, this);
-            }
-            else if (mapVertical[y+i] == 7) {
-                g.drawImage(hsrClosed, 0, player.getY(i), 2000, 70, this);
-            }
-            else if (mapVertical[y+i] == 8) {
-                g.drawImage(startPlatImage, 0, player.getY(i), 2000, 140, this);
-            }
-
-            else if (mapVertical[y+i] == 10) {
-                g.drawImage(hsrComing, 0, player.getY(i), 2000, 70, this);
-                if (vehicleDirection[y+i] == 0) g.drawImage(hsrLeft, vehicleX[y+i][0], player.getY(i), this);
-                else g.drawImage(hsrRight, vehicleX[y+i][0], player.getY(i), this);
-            }
 
 
-
-            // end game area
-            else if (mapVertical[y+i] == 9) {
-                g.drawImage(homeSweetHome, 0, player.getY(i)-350, 2000, 420, this);
-                // g.drawImage(home, player.getActualX(4), player.getY(i)+10, this);
-            }
-
-        }}
-
-        else if (y == 0) {for (int i = 1; i <= 5; i++) {
-            //System.out.println(mapVertical[(y+1)+i]);
-
-            if (mapVertical[(y+1)+i] == 0) {
-                g.drawImage(platformImage, 0, player.getY(i), 2000, 70, this);
-                for (int j = 0; j < 9; j++) {
-                    if (map[(y+1)+i][j] == 1) {
-                        g.drawImage(signalImage, player.getActualX(j), player.getY(i) + 10, this);
-                    }
-                    else if (map[(y+1)+i][j] == 2) {
-                        g.drawImage(hp, player.getActualX(j), player.getY(i)+10, this);
-                    }
-                    else if (map[(y+1)+i][j] == 3) {
-                        g.drawImage(clock, player.getActualX(j), player.getY(i)+10, this);
-                    }
-                    else if (map[(y+1)+i][j] == 4) {
-                        g.drawImage(coinImage, player.getActualX(j), player.getY(i)+10, this);
-                    }
-                    else if (map[(y+1)+i][j] == 5) {
-                        g.drawImage(police, player.getActualX(j), player.getY(i)+10, this);
-                    }
-                }
-            }
-            else if (mapVertical[(y+1)+i] == 1) {
-                g.drawImage(roadImage, 0, player.getY(i), 2000, 70, this);
-                for (int j = 0; j < 2; j++) {
-                    if (vehicleDirection[(y+1)+i] == 0) g.drawImage(carLeft, vehicleX[(y+1)+i][j], player.getY(i), this);
-                    else g.drawImage(carRight, vehicleX[(y+1)+i][j], player.getY(i), this);
+                // end game area
+                else if (mapVertical[y + i] == 9) {
+                    g.drawImage(homeSweetHome, 0, player.getY(i) - 350, 2000, 420, this);
+                    // g.drawImage(home, player.getActualX(4), player.getY(i)+10, this);
                 }
 
             }
-            else if (mapVertical[(y+1)+i] == 2) {
-                g.drawImage(railImage, 0, player.getY(i), 2000, 70, this);
-                if (vehicleDirection[(y+1)+i] == 0) g.drawImage(trainLeft, vehicleX[(y+1)+i][0], player.getY(i), this);
-                else g.drawImage(trainRight, vehicleX[(y+1)+i][0], player.getY(i), this);
+        } else if (y == 0) {
+            for (int i = 1; i <= 5; i++) {
+                //System.out.println(mapVertical[(y+1)+i]);
+
+                if (mapVertical[(y + 1) + i] == 0) {
+                    g.drawImage(platformImage, 0, player.getY(i), 2000, 70, this);
+                    for (int j = 0; j < 9; j++) {
+                        if (map[(y + 1) + i][j] == 1) {
+                            g.drawImage(signalImage, player.getActualX(j), player.getY(i) + 10, this);
+                        } else if (map[(y + 1) + i][j] == 2) {
+                            g.drawImage(hp, player.getActualX(j), player.getY(i) + 10, this);
+                        } else if (map[(y + 1) + i][j] == 3) {
+                            g.drawImage(clock, player.getActualX(j), player.getY(i) + 10, this);
+                        } else if (map[(y + 1) + i][j] == 4) {
+                            g.drawImage(coinImage, player.getActualX(j), player.getY(i) + 10, this);
+                        } else if (map[(y + 1) + i][j] == 5) {
+                            g.drawImage(police, player.getActualX(j), player.getY(i) + 10, this);
+                        }
+                    }
+                } else if (mapVertical[(y + 1) + i] == 1) {
+                    g.drawImage(roadImage, 0, player.getY(i), 2000, 70, this);
+                    for (int j = 0; j < 2; j++) {
+                        if (vehicleDirection[(y + 1) + i] == 0)
+                            g.drawImage(carLeft, vehicleX[(y + 1) + i][j], player.getY(i), this);
+                        else g.drawImage(carRight, vehicleX[(y + 1) + i][j], player.getY(i), this);
+                    }
+
+                } else if (mapVertical[(y + 1) + i] == 2) {
+                    g.drawImage(railImage, 0, player.getY(i), 2000, 70, this);
+                    if (vehicleDirection[(y + 1) + i] == 0)
+                        g.drawImage(trainLeft, vehicleX[(y + 1) + i][0], player.getY(i), this);
+                    else g.drawImage(trainRight, vehicleX[(y + 1) + i][0], player.getY(i), this);
+                } else if (mapVertical[(y + 1) + i] == 3) {
+                    g.drawImage(hsrImage, 0, player.getY(i), 2000, 70, this);
+                    if (vehicleDirection[(y + 1) + i] == 0)
+                        g.drawImage(hsrLeft, vehicleX[(y + 1) + i][0], player.getY(i), this);
+                    else g.drawImage(hsrRight, vehicleX[(y + 1) + i][0], player.getY(i), this);
+                } else if (mapVertical[(y + 1) + i] == 5) {
+                    g.drawImage(roadClosed, 0, player.getY(i), 2000, 70, this);
+                } else if (mapVertical[(y + 1) + i] == 6) {
+                    g.drawImage(railClosed, 0, player.getY(i), 2000, 70, this);
+                } else if (mapVertical[(y + 1) + i] == 7) {
+                    g.drawImage(hsrClosed, 0, player.getY(i), 2000, 70, this);
+                } else if (mapVertical[(y + 1) + i] == 8) {
+                    g.drawImage(startPlatImage, 0, player.getY(i), 2000, 140, this);
+                } else if (mapVertical[(y + 1) + i] == 10) {
+                    g.drawImage(hsrComing, 0, player.getY(i), 2000, 70, this);
+                    if (vehicleDirection[(y + 1) + i] == 0)
+                        g.drawImage(hsrLeft, vehicleX[(y + 1) + i][0], player.getY(i), this);
+                    else g.drawImage(hsrRight, vehicleX[(y + 1) + i][0], player.getY(i), this);
+                }
             }
-            else if (mapVertical[(y+1)+i] == 3) {
-                g.drawImage(hsrImage, 0, player.getY(i), 2000, 70, this);
-                if (vehicleDirection[(y+1)+i] == 0) g.drawImage(hsrLeft, vehicleX[(y+1)+i][0], player.getY(i), this);
-                else g.drawImage(hsrRight, vehicleX[(y+1)+i][0], player.getY(i), this);
-            }
-            else if (mapVertical[(y+1)+i] == 5) {
-                g.drawImage(roadClosed, 0, player.getY(i), 2000, 70, this);
-            }
-            else if (mapVertical[(y+1)+i] == 6) {
-                g.drawImage(railClosed, 0, player.getY(i), 2000, 70, this);
-            }
-            else if (mapVertical[(y+1)+i] == 7) {
-                g.drawImage(hsrClosed, 0, player.getY(i), 2000, 70, this);
-            }
-            else if (mapVertical[(y+1)+i] == 8) {
-                g.drawImage(startPlatImage, 0, player.getY(i), 2000, 140, this);
-            }
-            else if (mapVertical[(y+1)+i] == 10) {
-                g.drawImage(hsrComing, 0, player.getY(i), 2000, 70, this);
-                if (vehicleDirection[(y+1)+i] == 0) g.drawImage(hsrLeft, vehicleX[(y+1)+i][0], player.getY(i), this);
-                else g.drawImage(hsrRight, vehicleX[(y+1)+i][0], player.getY(i), this);
-            }
-        }}
+        }
         //System.out.println(y+" "+(Init.gameLength-30));
         //System.out.println(y > Init.gameLength-30);
-        if (y > Init.gameLength-10) {
+        if (y > Init.gameLength - 10) {
             for (int i = 0; i < player.getScore(); i++) {
                 int tmpX = ((getWidth() - 20) - 15) - (i * 30);
                 g.drawImage(heartCyan, tmpX, 15, 25, 25, this);
             }
-        }
-        else {
+        } else {
             for (int i = 0; i < player.getScore(); i++) {
-                int tmpX = ((getWidth()-20)-15)-(i*30);
+                int tmpX = ((getWidth() - 20) - 15) - (i * 30);
                 g.drawImage(heart, tmpX, 15, 25, 25, this);
             }
         }
@@ -743,28 +708,27 @@ public class GamePanel extends JPanel {
 
 
         if (!isEndless) g.drawString("Time left: " + Countdown.getMinute() + ":" + Countdown.getSecond(), 15, 20);
-        if (!isEndless) g.drawString("Steps left: "+((Init.gameLength-y)-6)+", Coin: "+coin, 15, 40);
-        else g.drawString("Total steps so far: "+y+" steps, Coin: "+coin, 15, 20);
+        if (!isEndless) g.drawString("Steps left: " + ((Init.gameLength - y) - 6) + ", Coin: " + coin, 15, 40);
+        else g.drawString("Total steps so far: " + y + " steps, Coin: " + coin, 15, 20);
         Font font2 = new Font("Arial", Font.PLAIN, 14);
         g.setFont(font2);
         if (Init.isDebug) {
 
 
-            g.drawString("X: "+x+" Y: "+y, 15, getHeight()-30);
+            g.drawString("X: " + x + " Y: " + y, 15, getHeight() - 30);
 
         }
-        g.drawString("Game Version: "+ Init.gameVer, 15, getHeight()-15);
+        g.drawString("Game Version: " + Init.gameVer, 15, getHeight() - 15);
         // g.fillOval(player.getCurrentLocationX()-2, yLoc+8, 54, 54);
 
         // Draw user image as a circle
         int userImageX = player.getCurrentLocationX();
-        int userImageY = yLoc+7;
+        int userImageY = yLoc + 7;
         int imageWidth = 54;
         int imageHeight = 54;
 
         // Create a Graphics2D object
         Graphics2D g2d = (Graphics2D) g.create();
-
 
 
         // Create a circular clip
@@ -782,7 +746,7 @@ public class GamePanel extends JPanel {
 
         if (player.getScore() <= 0) {
             isDead = true;
-            g.drawImage(outofscore, (getWidth() - 1920)/2, (getHeight() - 1080)/2, 1920, 1080, this);
+            g.drawImage(outofscore, (getWidth() - 1920) / 2, (getHeight() - 1080) / 2, 1920, 1080, this);
             //Countdown.playStatus = false;
             mainMenuButton.setBounds((getWidth() / 2) - 300, (getHeight() / 2) + 120, 200, 70);
             add(mainMenuButton);
@@ -794,15 +758,13 @@ public class GamePanel extends JPanel {
                     remove(mainMenuButton);
                 }
             });
-        }
-
-        else if (isDone) {
+        } else if (isDone) {
             isDead = true;
-            g.drawImage(winImage, (getWidth() - 1920)/2, (getHeight() - 1080)/2, 1920, 1080, this);
+            g.drawImage(winImage, (getWidth() - 1920) / 2, (getHeight() - 1080) / 2, 1920, 1080, this);
             // Countdown.playStatus = false;
-            g.drawString("Your life left: "+player.getScore(), (getWidth()/2)-50, (getHeight()/2)+140);
-            g.drawString("Total used time: "+Countdown.getTotalTime(), (getWidth()/2)-50, (getHeight()/2)+160);
-            g.drawString("You got "+coin+" coins!", (getWidth()/2)-50, (getHeight()/2)+180);
+            g.drawString("Your life left: " + player.getScore(), (getWidth() / 2) - 50, (getHeight() / 2) + 140);
+            g.drawString("Total used time: " + Countdown.getTotalTime(), (getWidth() / 2) - 50, (getHeight() / 2) + 160);
+            g.drawString("You got " + coin + " coins!", (getWidth() / 2) - 50, (getHeight() / 2) + 180);
             mainMenuButton.setBounds((getWidth() / 2) - 300, (getHeight() / 2) + 120, 200, 70);
             add(mainMenuButton);
             mainMenuButton.addActionListener(new ActionListener() {
@@ -813,13 +775,11 @@ public class GamePanel extends JPanel {
                     remove(mainMenuButton);
                 }
             });
-        }
-
-        else if (Countdown.getMinute() <= 0 && Countdown.second <= 0) {
+        } else if (Countdown.getMinute() <= 0 && Countdown.second <= 0) {
             isDead = true;
-            g.drawImage(outoftime, (getWidth() - 1920)/2, (getHeight() - 1080)/2, 1920, 1080, this);
+            g.drawImage(outoftime, (getWidth() - 1920) / 2, (getHeight() - 1080) / 2, 1920, 1080, this);
             //Countdown.playStatus = false;
-            g.drawString("Be faster next time!", (getWidth()/2)-50, (getHeight()/2)+160);
+            g.drawString("Be faster next time!", (getWidth() / 2) - 50, (getHeight() / 2) + 160);
             mainMenuButton.setBounds((getWidth() / 2) - 300, (getHeight() / 2) + 120, 200, 70);
             add(mainMenuButton);
             mainMenuButton.addActionListener(new ActionListener() {
@@ -834,11 +794,12 @@ public class GamePanel extends JPanel {
         // heart
 
     }
+
     static int getPlayerX() {
-        return player.getCurrentLocationX()+25;
+        return player.getCurrentLocationX() + 25;
     }
 
     static int getPlayerY() {
-        return yLoc+35;
+        return yLoc + 35;
     }
 }

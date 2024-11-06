@@ -13,7 +13,7 @@ public class Init extends JFrame {
     static protected final char devMode = 'r'; // Game mode
     static protected int gameTime = 5; // Game time (use -1 for debug)
     static protected final boolean isDebug = false;
-    static protected int gameLength = 150+6;
+    static protected int gameLength = 150 + 6;
     static protected final int addScore = 1; //HP
     static protected final int deductScore = -1; //HP
     static protected final int addTime = 10; // Additional time in seconds
@@ -21,7 +21,7 @@ public class Init extends JFrame {
     static protected final int trainSpeed = 7;
     static protected final int hsrSpeed = 19;
     static protected int score = 3; // Default HP
-    static protected final int mapEdge = 2000+6; // max map load
+    static protected final int mapEdge = 2000 + 6; // max map load
     static public boolean isThisRunning = true;
 
     static JFrame display = new Init();  // Launcher frame
@@ -29,7 +29,7 @@ public class Init extends JFrame {
 
     Init() { // main constructor
         add(new Launcher());
-        switch(devMode) {
+        switch (devMode) {
             case 'c':
                 gameVer += " (Canary Release, use with caution!)";
                 break;
@@ -85,7 +85,7 @@ public class Init extends JFrame {
         if (isThisRunning) return;
         isThisRunning = true;
 
-      gameplay.dispose();  // Close and dispose of the game frame
+        gameplay.dispose();  // Close and dispose of the game frame
 
         Launcher.isRunning = false;
         display.setVisible(true);  // Show the launcher frame again

@@ -44,7 +44,7 @@ public class PlayerLocation {
     }
 
     public int getY(int where) {
-        switch(where) {
+        switch (where) {
             case 1:
                 return yLoc[4];
             case 2:
@@ -68,7 +68,7 @@ public class PlayerLocation {
     }
 
     public void deductScore() {
-        score+=Init.deductScore;
+        score += Init.deductScore;
     }
 
     public int getScore() {
@@ -76,7 +76,7 @@ public class PlayerLocation {
     }
 
     public int getCurrentLocationX() {
-        if (!whileMove) return xLoc[x]+25;
+        if (!whileMove) return xLoc[x] + 25;
         else return loc;
     }
 
@@ -85,7 +85,7 @@ public class PlayerLocation {
         if (x > 0) {
             whileMove = true;
             loc = xLoc[x];
-            int newLoc = xLoc[x-1];
+            int newLoc = xLoc[x - 1];
             int t = newLoc - loc;
             for (int i = 0; i < t; i++) {
                 loc += i;
@@ -93,8 +93,7 @@ public class PlayerLocation {
             whileMove = false;
             x--;
             // System.out.println(x);
-        }
-        else {
+        } else {
             // System.out.println("to edge");
             x = 8;
             // System.out.println(x);
@@ -106,7 +105,7 @@ public class PlayerLocation {
         if (x < 8) {
             whileMove = true;
             loc = xLoc[x];
-            int newLoc = xLoc[x+1];
+            int newLoc = xLoc[x + 1];
             int t = newLoc - loc;
             for (int i = 0; i < t; i++) {
                 loc += i;
@@ -114,8 +113,7 @@ public class PlayerLocation {
             whileMove = false;
             x++;
             // System.out.println(x);
-        }
-        else {
+        } else {
             // System.out.println("to edge");
             x = 0;
             // System.out.println(x);
@@ -123,7 +121,7 @@ public class PlayerLocation {
     }
 
     public int getActualX(int x) {
-        return xLoc[x]+25;
+        return xLoc[x] + 25;
     }
 
 }

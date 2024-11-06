@@ -39,21 +39,21 @@ public class Launcher extends JPanel {
         int ySize = getHeight();
         g.drawImage(backgroundImage, 0, 0, xSize, ySize, this);
 
-        startTitle.setBounds(((getWidth()/2) - (800/2)) , 0, 800, 250);
+        startTitle.setBounds(((getWidth() / 2) - (800 / 2)), 0, 800, 250);
         add(startTitle);
 
         Font font = new Font("Arial", Font.PLAIN, 14);
         g.setFont(font);
 
         g.setColor(Color.WHITE);
-        g.drawString("Game Version: "+ Init.gameVer, 15, getHeight()-15);
+        g.drawString("Game Version: " + Init.gameVer, 15, getHeight() - 15);
 
 
         // startButton, exitButton, endlessButton, hardButton
-        startButton.setBounds(((getWidth()/2)-100)-120, (getHeight() / 2), 200, 70);
-        hardButton.setBounds(((getWidth()/2) -100)+120, (getHeight() / 2), 200, 70);
-        endlessButton.setBounds(((getWidth()/2)-100)-120, (getHeight() / 2)+75, 200, 70);
-        exitButton.setBounds(((getWidth()/2) -100)+120, (getHeight() / 2)+75, 200, 70);
+        startButton.setBounds(((getWidth() / 2) - 100) - 120, (getHeight() / 2), 200, 70);
+        hardButton.setBounds(((getWidth() / 2) - 100) + 120, (getHeight() / 2), 200, 70);
+        endlessButton.setBounds(((getWidth() / 2) - 100) - 120, (getHeight() / 2) + 75, 200, 70);
+        exitButton.setBounds(((getWidth() / 2) - 100) + 120, (getHeight() / 2) + 75, 200, 70);
         add(exitButton);
         add(startButton);
 
@@ -68,18 +68,18 @@ public class Launcher extends JPanel {
                 }
                 GamePanel.isEndless = false;
                 isRunning = true;
-                    // remove(startButton);
-                    //startButton.setIcon(startClick);
-                    // System.out.println("User clicked start");
+                // remove(startButton);
+                //startButton.setIcon(startClick);
+                // System.out.println("User clicked start");
                 Init.gameTime = 5;
-                Init.gameLength = 200+6;
+                Init.gameLength = 200 + 6;
                 Init.score = 3;
                 Init.startGameInit();
                 Countdown.minute = 5;
                 Countdown.second = 0;
-                    //remove(startButton);
-                    // startButton.setIcon(startIcon);
-                    GamePanel.init();
+                //remove(startButton);
+                // startButton.setIcon(startIcon);
+                GamePanel.init();
 
             }
         });
@@ -121,7 +121,7 @@ public class Launcher extends JPanel {
                 //startButton.setIcon(startClick);
                 // System.out.println("User clicked start");
                 Init.gameTime = 2;
-                Init.gameLength = 200+6;
+                Init.gameLength = 200 + 6;
                 Init.score = 1;
                 Init.startGameInit();
                 Countdown.minute = 2;
