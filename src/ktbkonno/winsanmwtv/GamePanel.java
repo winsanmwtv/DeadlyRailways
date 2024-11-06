@@ -55,6 +55,7 @@ public class GamePanel extends JPanel {
     private final Image hsrComing = loadImage("image/hsrComing.png");
     private final Image heart = loadImage("image/heart.png");
     private final Image heartCyan = loadImage("image/heartCyan.png");
+    private final Image police = loadImage("image/police.png");
 
     // vertical status: 0 = platform, 1 = road, 2 = rail, 3 = hsr_rail, 9 = endLoc, 8 = startLoc;
     // 4 = void; 5 = roadClosed;
@@ -105,6 +106,7 @@ public class GamePanel extends JPanel {
                 switch (keyCode) {
                     case KeyEvent.VK_W:
                     case KeyEvent.VK_UP:
+                    case KeyEvent.VK_SPACE:
                         if (isDead) break;
                         if (y == 0) {
                             // Countdown.playStatus = true;
@@ -117,6 +119,10 @@ public class GamePanel extends JPanel {
                                 map[y+3][x] = 0;
                             } else if (map[y+3][x] == 4) {
                                 coin++;
+                                map[y+3][x] = 0;
+                            }
+                            else if (map[y+3][x] == 5) {
+                                Countdown.deductTime(Init.addTime*3);
                                 map[y+3][x] = 0;
                             }
                             yLoc = player.getY(2);
@@ -136,6 +142,11 @@ public class GamePanel extends JPanel {
                         } else if (map[y+3][x] == 4) {
                             // Countdown.playStatus = true;
                             coin++;
+                            map[y+3][x] = 0;
+                        }
+                        else if (map[y+3][x] == 5) {
+                            // Countdown.playStatus = true;
+                            Countdown.deductTime(Init.addTime*3);
                             map[y+3][x] = 0;
                         }
                         if (!isDone) {
@@ -164,6 +175,10 @@ public class GamePanel extends JPanel {
                                     coin++;
                                     map[y+2][x-1] = 0;
                                 }
+                                else if (map[y+2][x-1] == 5) {
+                                    Countdown.deductTime(Init.addTime*3);
+                                    map[y+2][x-1] = 0;
+                                }
                                 player.MoveLeft();
                                 if (y >= Init.gameLength-6 && x == 5) isDone = true;
                                 x--;
@@ -181,6 +196,10 @@ public class GamePanel extends JPanel {
                                     coin++;
                                     map[y+2][8] = 0;
                                 }
+                                else if (map[y+2][8] == 5) {
+                                    Countdown.deductTime(Init.addTime*3);
+                                    map[y+2][8] = 0;
+                                }
                                 player.MoveLeft();
                                 if (y >= Init.gameLength-6 && x == 5) isDone = true;
                                 x = 8;
@@ -192,6 +211,7 @@ public class GamePanel extends JPanel {
 
                     case KeyEvent.VK_S:
                     case KeyEvent.VK_DOWN:
+                    case KeyEvent.VK_SHIFT:
                         if (isDead) break;
                         if (y == 1) {
                             // Countdown.playStatus = true;
@@ -204,6 +224,10 @@ public class GamePanel extends JPanel {
                                 map[y][x] = 0;
                             } else if (map[y][x] == 4) {
                                 coin++;
+                                map[y][x] = 0;
+                            }
+                            else if (map[y][x] == 5) {
+                                Countdown.deductTime(Init.addTime*3);
                                 map[y][x] = 0;
                             }
                             yLoc = player.getY(1);
@@ -223,6 +247,11 @@ public class GamePanel extends JPanel {
                         } else if (map[y+1][x] == 4) {
                             // Countdown.playStatus = true;
                             coin++;
+                            map[y+1][x] = 0;
+                        }
+                        else if (map[y+1][x] == 5) {
+                            // Countdown.playStatus = true;
+                            Countdown.deductTime(Init.addTime*3);
                             map[y+1][x] = 0;
                         }
                         if (!isDone) {
@@ -248,6 +277,10 @@ public class GamePanel extends JPanel {
                                     coin++;
                                     map[y+2][x+1] = 0;
                                 }
+                                else if (map[y+2][x+1] == 5) {
+                                    Countdown.deductTime(Init.addTime*3);
+                                    map[y+2][x+1] = 0;
+                                }
                                 player.MoveRight();
                                 if (y >= Init.gameLength-6 && x == 3) isDone = true;
                                 x++;
@@ -262,6 +295,10 @@ public class GamePanel extends JPanel {
                                     map[y+2][0] = 0;
                                 } else if (map[y+2][0] == 4) {
                                     coin++;
+                                    map[y+2][0] = 0;
+                                }
+                                else if (map[y+2][0] == 5) {
+                                    Countdown.deductTime(Init.addTime*3);
                                     map[y+2][0] = 0;
                                 }
                                 player.MoveRight();
@@ -461,17 +498,24 @@ public class GamePanel extends JPanel {
                 if (mapVertical[i] == 0) {
                     // Generate row ensuring minimum number of 0s for walkability
                     boolean coinPlaced = false; // Track if a coin has been placed
+                    boolean policePlaced = false;
                     zeroCount = 0; // Reset zero count for this row
 
                     do {
                         zeroCount = 0;
                         for (int k = 0; k < 9; k++) {
                             // Adjust probabilities for coin (4), `1`, and default to `0`
-                            if (!coinPlaced && getRandomValue(new int[]{0, 1, 2, 3, 4}, new double[]{0.418, 0.28, 0.001, 0.001, 0.3}) == 4) {
+                            if (!coinPlaced && getRandomValue(new int[]{0, 1, 2, 3, 4, 5}, new double[]{0.511, 0.28, 0.001, 0.001, 0.2, 0.007}) == 4) {
                                 map[i][k] = 4; // Place a coin
                                 coinPlaced = true; // Mark that a coin has been placed
-                            } else {
-                                map[i][k] = getRandomValue(new int[]{0, 1, 2, 3, 4}, new double[]{0.718, 0.28, 0.001, 0.001, 0.0}); // Place `0` or `1`
+                            }
+                            else if (!policePlaced && getRandomValue(new int[]{0, 1, 2, 3, 4, 5}, new double[]{0.511, 0.28, 0.001, 0.001, 0.2, 0.007}) == 5){
+                                map[i][k] = 5; // Place a coin
+                                policePlaced = true; // Mark that a coin has been placed
+                            }
+
+                            else {
+                                map[i][k] = getRandomValue(new int[]{0, 1, 2, 3}, new double[]{0.818, 0.18, 0.001, 0.001}); // Place `0` or `1`
                             }
                             if (map[i][k] == 0) {
                                 zeroCount++;
@@ -566,6 +610,9 @@ public class GamePanel extends JPanel {
                     else if (map[y+i][j] == 4) {
                         g.drawImage(coinImage, player.getActualX(j), player.getY(i)+10, this);
                     }
+                    else if (map[y+i][j] == 5) {
+                        g.drawImage(police, player.getActualX(j), player.getY(i)+10, this);
+                    }
                 }
             }
             else if (mapVertical[y+i] == 1) {
@@ -631,6 +678,9 @@ public class GamePanel extends JPanel {
                     }
                     else if (map[(y+1)+i][j] == 4) {
                         g.drawImage(coinImage, player.getActualX(j), player.getY(i)+10, this);
+                    }
+                    else if (map[(y+1)+i][j] == 5) {
+                        g.drawImage(police, player.getActualX(j), player.getY(i)+10, this);
                     }
                 }
             }

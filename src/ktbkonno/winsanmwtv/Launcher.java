@@ -61,12 +61,15 @@ public class Launcher extends JPanel {
                     return;
                 }
                 isRunning = true;
-                    remove(startButton);
+                    // remove(startButton);
                     //startButton.setIcon(startClick);
                     // System.out.println("User clicked start");
-                    Init.startGameInit();
-                    Countdown.minute = Init.gameTime;
-                    Countdown.second = 0;
+                Init.gameTime = 5;
+                Init.gameLength = 200+6;
+                Init.score = 3;
+                Init.startGameInit();
+                Countdown.minute = 5;
+                Countdown.second = 0;
                     //remove(startButton);
                     // startButton.setIcon(startIcon);
                     GamePanel.init();
@@ -109,7 +112,7 @@ public class Launcher extends JPanel {
                 //startButton.setIcon(startClick);
                 // System.out.println("User clicked start");
                 Init.gameTime = 2;
-                Init.gameLength = 150+6;
+                Init.gameLength = 200+6;
                 Init.score = 1;
                 Init.startGameInit();
                 Countdown.minute = 2;

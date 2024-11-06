@@ -24,6 +24,21 @@ public class Countdown {
         }
     }
 
+    static public void deductTime(int time) {
+        if (second - time >= 0) {
+            second -= time;
+        } else {
+            if (minute > 0) { // Only decrease minute if it's greater than 0
+                minute--;
+                second = 60 - (time - second);
+            } else {
+                // If there are no more minutes left, set both minute and second to zero
+                second = 0;
+            }
+        }
+    }
+
+
     static void setHaltStatus(boolean halt) {
         isNotHalt = halt;
     }
