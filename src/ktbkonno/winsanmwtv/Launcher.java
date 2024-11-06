@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 
 public class Launcher extends JPanel {
-    private final URL bgURL = this.getClass().getResource("image/background.png");
+    private final URL bgURL = this.getClass().getResource("image/background2.png");
     private final Image backgroundImage = new ImageIcon(bgURL).getImage();
 
     public static boolean isRunning = false;
