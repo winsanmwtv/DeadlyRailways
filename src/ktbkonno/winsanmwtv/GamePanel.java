@@ -61,11 +61,11 @@ public class GamePanel extends JPanel {
     // horizontal status platform: 0 = void, 1 = signal pole, 2 = assistanceItem;
     // 26-30 would must void;
 
-    static int[] mapVertical = new int[Init.gameLength];
-    static int[][] map = new int[Init.gameLength][9];
-    static int[] vehicleDirection = new int[Init.gameLength];
-    static boolean[][] vehicleCollapse = new boolean[Init.gameLength][2];
-    static int[][] vehicleX = new int[Init.gameLength][2];
+    static int[] mapVertical = new int[Init.mapEdge];
+    static int[][] map = new int[Init.mapEdge][9];
+    static int[] vehicleDirection = new int[Init.mapEdge];
+    // static boolean[][] vehicleCollapse = new boolean[Init.gameLength][2];
+    static int[][] vehicleX = new int[Init.mapEdge][2];
     // 0 left 1 right;
 
     static boolean isRun = false;
@@ -399,11 +399,23 @@ public class GamePanel extends JPanel {
     static int zeroCount; // Declared outside the init method
 
     static public void init() {
+
+        for (int i = 0; i < Init.mapEdge; i++) {
+            mapVertical[i] = 0;
+            vehicleDirection[i] = 0;
+            vehicleX[i][0] = 0;
+            vehicleX[i][1] = 0;
+            for (int j = 0; j < 9; j++) {
+                map[i][j] = 0;
+            }
+        }
         yLoc = player.getY(1);
         mapVertical[2] = 8;
         mapVertical[Init.gameLength - 4] = 9;
         int minWalkableZeros = 5;      // Minimum number of 0's required in each row for walkability
         int maxSequenceLength = 3;     // Maximum allowed length of consecutive non-0 values in mapVertical
+
+
 
         // Track the count of consecutive non-zero values (1, 2, or 3)
         int consecutiveCount = 0;
@@ -674,6 +686,8 @@ public class GamePanel extends JPanel {
         }
 
         if (y == 0) yLoc = player.getY(1);
+        Font font = new Font("Arial", Font.PLAIN, 14);
+        g.setFont(font);
 
         g.drawString("Time left: " + Countdown.getMinute() + ":" + Countdown.getSecond(), 15, 15);
         g.drawString("Total steps so far: "+y+" steps, Coin: "+coin, 15, 30);

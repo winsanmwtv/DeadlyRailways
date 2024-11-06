@@ -9,18 +9,19 @@ package ktbkonno.winsanmwtv;
 import javax.swing.*;
 
 public class Init extends JFrame {
-    static protected String gameVer = "dev-k"; // GAME VERSION
+    static protected String gameVer = "dev-l"; // GAME VERSION
     static protected final char devMode = 'c'; // Game mode
-    static protected final int gameTime = 5; // Game time (use -1 for debug)
+    static protected int gameTime = 5; // Game time (use -1 for debug)
     static protected final boolean isDebug = true;
-    static protected final int gameLength = 50+6;
+    static protected int gameLength = 150+6;
     static protected final int addScore = 1; //HP
     static protected final int deductScore = -1; //HP
     static protected final int addTime = 10; // Additional time in seconds
     static protected final int carSpeed = 4;
     static protected final int trainSpeed = 8;
     static protected final int hsrSpeed = 19;
-    static protected final int score = 3; // Default HP
+    static protected int score = 3; // Default HP
+    static protected final int mapEdge = 2000+6; // max map load
     static public boolean isThisRunning = true;
 
     static JFrame display = new Init();  // Launcher frame

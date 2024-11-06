@@ -25,6 +25,8 @@ public class Launcher extends JPanel {
 
     private JButton startButton = new JButton(startIcon);
     private JButton exitButton = new JButton(exitIcon);
+    private JButton hardButton = new JButton("Hardcore Mode");
+    private JButton endlessButton = new JButton("Endless Mode");
 
     Launcher() {
         repaint();
@@ -40,11 +42,18 @@ public class Launcher extends JPanel {
         startTitle.setBounds((getWidth() - 550) / 2, 20, 550, 120);
         add(startTitle);
 
+        Font font = new Font("Arial", Font.PLAIN, 14);
+        g.setFont(font);
+
         g.setColor(Color.WHITE);
         g.drawString("Game Version: "+ Init.gameVer, 15, getHeight()-15);
 
-        startButton.setBounds((getWidth() - 100) / 2, (getHeight() / 2), 100, 40);
+        startButton.setBounds(((getWidth()/2)-100)-120, (getHeight() / 2), 200, 70);
         add(startButton);
+        endlessButton.setBounds(((getWidth()/2)-100)-120, (getHeight() / 2)+75, 200, 70);
+        add(endlessButton);
+        hardButton.setBounds(((getWidth()/2) -100)+120, (getHeight() / 2)+75, 200, 70);
+        add(hardButton);
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -65,7 +74,54 @@ public class Launcher extends JPanel {
             }
         });
 
-        exitButton.setBounds((getWidth() - 100) / 2, (getHeight() / 2) + 50, 100, 40);
+        endlessButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (isRunning) {
+                    return;
+                }
+                isRunning = true;
+                // remove(endlessButton);
+                //startButton.setIcon(startClick);
+                // System.out.println("User clicked start");
+                Countdown.minute = 59;
+                Countdown.second = 59;
+                Init.gameTime = 59;
+                Init.gameLength = Init.mapEdge;
+                Init.score = 10;
+                Init.startGameInit();
+
+                //remove(startButton);
+                // startButton.setIcon(startIcon);
+                GamePanel.init();
+
+            }
+        });
+
+        hardButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (isRunning) {
+                    return;
+                }
+                isRunning = true;
+                // remove(startButton);
+                //startButton.setIcon(startClick);
+                // System.out.println("User clicked start");
+                Init.gameTime = 2;
+                Init.gameLength = 150+6;
+                Init.score = 1;
+                Init.startGameInit();
+                Countdown.minute = 2;
+                Countdown.second = 0;
+                //remove(startButton);
+                // startButton.setIcon(startIcon);
+                GamePanel.init();
+
+            }
+        });
+
+        exitButton.setBounds(((getWidth()/2) -100)+120, (getHeight() / 2), 200, 70);
         add(exitButton);
         exitButton.addActionListener(new ActionListener() {
             @Override
