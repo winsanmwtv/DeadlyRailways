@@ -16,6 +16,8 @@ public class GamePanel extends JPanel {
     public static int y = 1;
     public static int x = 4;
 
+    public static boolean isEndless = false;
+
     public static int coin = 0;
 
     static public boolean isDone = false;
@@ -39,7 +41,7 @@ public class GamePanel extends JPanel {
     private final Image hsrImage = loadImage("image/railHSR.png");
     private final Image startPlatImage = loadImage("image/startPlat.png");
     private final Image homeSweetHome = loadImage("image/home_sweet_home.png");
-    private final Image home = loadImage("image/home.png");
+    // private final Image home = loadImage("image/home.png");
     private final Image hp = loadImage("image/hp.png");
     private final Image clock = loadImage("image/clock.png");
     private final Image carLeft = loadImage("image/car_left.png");
@@ -152,7 +154,7 @@ public class GamePanel extends JPanel {
                         if (!isDone) {
                             // Countdown.playStatus = true;
                             if (y < Init.gameLength-6) y++;
-                            if (y >= Init.gameLength-6 && x == 4) isDone = true;
+                            if (y >= Init.gameLength-6) isDone = true;
                         }
                         repaint();
                         break;
@@ -180,7 +182,7 @@ public class GamePanel extends JPanel {
                                     map[y+2][x-1] = 0;
                                 }
                                 player.MoveLeft();
-                                if (y >= Init.gameLength-6 && x == 5) isDone = true;
+                                if (y >= Init.gameLength-6) isDone = true;
                                 x--;
                             }
                             else {
@@ -201,7 +203,7 @@ public class GamePanel extends JPanel {
                                     map[y+2][8] = 0;
                                 }
                                 player.MoveLeft();
-                                if (y >= Init.gameLength-6 && x == 5) isDone = true;
+                                if (y >= Init.gameLength-6) isDone = true;
                                 x = 8;
 
                             }
@@ -282,7 +284,7 @@ public class GamePanel extends JPanel {
                                     map[y+2][x+1] = 0;
                                 }
                                 player.MoveRight();
-                                if (y >= Init.gameLength-6 && x == 3) isDone = true;
+                                if (y >= Init.gameLength-6) isDone = true;
                                 x++;
                             } else {
                                 // System.out.println("to edge");
@@ -302,7 +304,7 @@ public class GamePanel extends JPanel {
                                     map[y+2][0] = 0;
                                 }
                                 player.MoveRight();
-                                if (y >= Init.gameLength-6 && x == 3) isDone = true;
+                                if (y >= Init.gameLength-6) isDone = true;
                                 x = 0;
                             }
                         }
@@ -656,7 +658,7 @@ public class GamePanel extends JPanel {
             // end game area
             else if (mapVertical[y+i] == 9) {
                 g.drawImage(homeSweetHome, 0, player.getY(i)-350, 2000, 420, this);
-                g.drawImage(home, player.getActualX(4), player.getY(i)+10, this);
+                // g.drawImage(home, player.getActualX(4), player.getY(i)+10, this);
             }
 
         }}
@@ -739,8 +741,10 @@ public class GamePanel extends JPanel {
         Font font = new Font("Arial", Font.PLAIN, 18);
         g.setFont(font);
 
-        g.drawString("Time left: " + Countdown.getMinute() + ":" + Countdown.getSecond(), 15, 20);
-        g.drawString("Total steps so far: "+y+" steps, Coin: "+coin, 15, 40);
+
+        if (!isEndless) g.drawString("Time left: " + Countdown.getMinute() + ":" + Countdown.getSecond(), 15, 20);
+        if (!isEndless) g.drawString("Steps left: "+((Init.gameLength-y)-6)+", Coin: "+coin, 15, 40);
+        else g.drawString("Total steps so far: "+y+" steps, Coin: "+coin, 15, 20);
         Font font2 = new Font("Arial", Font.PLAIN, 14);
         g.setFont(font2);
         if (Init.isDebug) {
@@ -750,13 +754,13 @@ public class GamePanel extends JPanel {
 
         }
         g.drawString("Game Version: "+ Init.gameVer, 15, getHeight()-15);
-        g.fillOval(player.getCurrentLocationX()-2, yLoc+8, 54, 54);
+        // g.fillOval(player.getCurrentLocationX()-2, yLoc+8, 54, 54);
 
         // Draw user image as a circle
         int userImageX = player.getCurrentLocationX();
         int userImageY = yLoc+10;
-        int imageWidth = 50;
-        int imageHeight = 50;
+        int imageWidth = 54;
+        int imageHeight = 54;
 
         // Create a Graphics2D object
         Graphics2D g2d = (Graphics2D) g.create();
@@ -780,7 +784,7 @@ public class GamePanel extends JPanel {
             isDead = true;
             g.drawImage(outofscore, (getWidth() - 1920)/2, (getHeight() - 1080)/2, 1920, 1080, this);
             //Countdown.playStatus = false;
-            mainMenuButton.setBounds(getWidth() / 2, (getHeight() / 2) + 30, 100, 40);
+            mainMenuButton.setBounds((getWidth() / 2) - 300, (getHeight() / 2) + 120, 200, 70);
             add(mainMenuButton);
             mainMenuButton.addActionListener(new ActionListener() {
                 @Override
@@ -796,10 +800,10 @@ public class GamePanel extends JPanel {
             isDead = true;
             g.drawImage(winImage, (getWidth() - 1920)/2, (getHeight() - 1080)/2, 1920, 1080, this);
             // Countdown.playStatus = false;
-            g.drawString("Your HP left: "+player.getScore(), (getWidth()/2)-150, (getHeight()/2)+50);
-            g.drawString("Total used time: "+Countdown.getTotalTime(), (getWidth()/2)-150, (getHeight()/2)+70);
-            g.drawString("You got "+coin+" coins!", (getWidth()/2)-150, (getHeight()/2)+90);
-            mainMenuButton.setBounds(getWidth() / 2, (getHeight() / 2) + 30, 100, 40);
+            g.drawString("Your life left: "+player.getScore(), (getWidth()/2)-50, (getHeight()/2)+140);
+            g.drawString("Total used time: "+Countdown.getTotalTime(), (getWidth()/2)-50, (getHeight()/2)+160);
+            g.drawString("You got "+coin+" coins!", (getWidth()/2)-50, (getHeight()/2)+180);
+            mainMenuButton.setBounds((getWidth() / 2) - 300, (getHeight() / 2) + 120, 200, 70);
             add(mainMenuButton);
             mainMenuButton.addActionListener(new ActionListener() {
                 @Override
@@ -815,7 +819,8 @@ public class GamePanel extends JPanel {
             isDead = true;
             g.drawImage(outoftime, (getWidth() - 1920)/2, (getHeight() - 1080)/2, 1920, 1080, this);
             //Countdown.playStatus = false;
-            mainMenuButton.setBounds(getWidth() / 2, (getHeight() / 2) + 30, 100, 40);
+            g.drawString("Be faster next time!", (getWidth()/2)-50, (getHeight()/2)+160);
+            mainMenuButton.setBounds((getWidth() / 2) - 300, (getHeight() / 2) + 120, 200, 70);
             add(mainMenuButton);
             mainMenuButton.addActionListener(new ActionListener() {
                 @Override

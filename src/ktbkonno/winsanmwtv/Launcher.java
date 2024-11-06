@@ -66,6 +66,7 @@ public class Launcher extends JPanel {
                 if (isRunning) {
                     return;
                 }
+                GamePanel.isEndless = false;
                 isRunning = true;
                     // remove(startButton);
                     //startButton.setIcon(startClick);
@@ -90,14 +91,15 @@ public class Launcher extends JPanel {
                     return;
                 }
                 isRunning = true;
+                GamePanel.isEndless = true;
                 // remove(endlessButton);
                 //startButton.setIcon(startClick);
                 // System.out.println("User clicked start");
-                Countdown.minute = 59;
-                Countdown.second = 59;
-                Init.gameTime = 59;
+                Countdown.minute = 5000;
+                Countdown.second = 00;
+                Init.gameTime = 5000;
                 Init.gameLength = Init.mapEdge;
-                Init.score = 10;
+                Init.score = 1;
                 Init.startGameInit();
 
                 //remove(startButton);
@@ -114,6 +116,7 @@ public class Launcher extends JPanel {
                     return;
                 }
                 isRunning = true;
+                GamePanel.isEndless = false;
                 // remove(startButton);
                 //startButton.setIcon(startClick);
                 // System.out.println("User clicked start");
